@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fake-market/routers"
 	"fmt"
 	"os"
 
@@ -16,6 +17,9 @@ func main() {
 		fmt.Printf("Fail to read file: %v", err)
 		os.Exit(1)
 	}
+
+	//导入路由组
+	routers.AdminRouterInit(r)
 
 	ginPort := config.Section("app").Key("port").String()
 	r.Run(ginPort)
