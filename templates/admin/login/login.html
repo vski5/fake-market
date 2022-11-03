@@ -1,0 +1,60 @@
+{{ define "admin/login/login.html" }}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>用户登录</title>  
+	<link rel="stylesheet" href="/static/admin/css/login.css"> 
+   </head>
+<body>
+<div class="container">
+        <div id="login">
+                <!-- 提交表单，post方法到下一个界面 -->
+                <form action="此处写路径" method="post" id="myform">
+                    <input type="hidden" name="ajaxlogin" id="ajaxlogin">
+                    <input type="hidden" name="ajaxcode" id="ajaxcode">
+                    <div class="l_title">fake-market:后台管理系统</div>
+                    <br /> 
+                    <br /> 
+                    <dl>
+                        <div class="inputbox">
+                            <input required="required" type="text" class="text" type="text" name="username" id="username">
+                            <span>管理员ID</span>
+                            <i></i>
+                        </div>
+                    <br /> 
+                    <br /> 
+                        <div class="inputbox">
+                            <input required="required" class="text" type="password" name="password" id="password">
+                            <span>管理员密码</span>
+                            <i></i>
+                        </div>
+                    <br /> 
+                    <br />     
+                        <!-- 点击验证码生成新的验证码 -->
+                        <div class="inputbox">
+                            <input required="required" id="verify" type="text" name="verify">
+                            <span>验证码</span>   
+                            <i></i>  
+                        </div>
+
+                    <br /> 
+                    <br />   
+                    <img id="verify_img" src="/admin/verify" title="看不清？点击刷新" onclick="javascript:this.src='/admin/verify?mt='+Math.random()">
+                    <br /> 
+                    <br />  
+                        <button>
+                            <input type="submit" class="button_top" name="dosubmit" value="Button"  >	
+                            <!-- <span class="button_top"> Button </span> -->
+                        </button>
+
+                    </dl>
+                </form>
+            </div>
+</div>
+
+</body>
+</html>
+
+{{end}}

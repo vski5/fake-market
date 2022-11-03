@@ -9,7 +9,7 @@ import (
 func AdminRouterInit(r *gin.Engine) {
 	adminRouters := r.Group("admin")
 	{
-		adminRouters.GET("/test1", admin.AdminController{}.Add)
+		adminRouters.GET("/login", admin.AdminController{}.Login)
 		adminRouters.GET("/test2", admin.AdminController{}.Back)
 	}
 }
