@@ -20,7 +20,7 @@ func AdminRouterInit(r *gin.Engine) {
 func ManagerRouterInit(r *gin.Engine) {
 	adminRouters := r.Group("admin/manager", middlewares.InitMiddleware)
 	{
-		adminRouters.GET("/index", admin.ManagerController{}.Index)
+		adminRouters.GET("/index", admin.ManagerController{}.Index) //Manager首页admin/manager/index
 		adminRouters.GET("/add", admin.ManagerController{}.Add)
 		adminRouters.GET("/edit", admin.ManagerController{}.Edit)
 		adminRouters.GET("/delete", admin.ManagerController{}.Delete)
