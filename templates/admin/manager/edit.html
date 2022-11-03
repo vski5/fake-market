@@ -1,8 +1,15 @@
 {{ define "admin/manager/edit.html" }}
 
 
+<!-- CSS -->
+{{ template "admin/public/managerHeader.html" .}}
+<!-- icon -->
+{{ template "admin/public/icon.html" .}} 
 
-
+<!-- 保证水平排序 -->
+<div class="display-flex">
+    <!-- 左侧栏 -->
+<div>{{ template "admin/public/managerNav.html" .}}</div>
 <div class="panel panel-default">
     <div class="panel-heading">
         修改管理员
@@ -35,6 +42,7 @@
     </div>
 
 
+</div>
 </div>
 
 
