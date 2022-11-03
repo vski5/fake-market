@@ -10,6 +10,6 @@ func AdminRouterInit(r *gin.Engine) {
 	adminRouters := r.Group("admin")
 	{
 		adminRouters.GET("/login", admin.AdminController{}.Login)
-		adminRouters.GET("/test2", admin.AdminController{}.Back)
+		adminRouters.POST("/dologin", admin.AdminController{}.Dolog)
 	}
 }
