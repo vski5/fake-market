@@ -31,6 +31,8 @@ func main() {
 
 	//导入路由组
 	routers.AdminRouterInit(r)
+	routers.ManagerRouterInit(r)
+	routers.FocusRouterInit(r)
 
 	ginPort := config.Section("app").Key("port").String()
 	r.Run(ginPort)
