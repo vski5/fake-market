@@ -12,7 +12,7 @@ func AdminRouterInit(r *gin.Engine) {
 	adminRouters := r.Group("admin", middlewares.InitMiddleware)
 	{
 		adminRouters.GET("/login", admin.AdminController{}.Login)
-		adminRouters.GET("/verify", admin.LoginCaptchaController{}.DoCaptcha)
+		adminRouters.GET("/captcha", admin.LoginCaptchaController{}.DoCaptcha)
 		adminRouters.POST("/dologin", admin.AdminController{}.Dolog)
 	}
 }
