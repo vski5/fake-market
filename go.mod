@@ -4,14 +4,16 @@ go 1.19
 
 require (
 	github.com/gin-gonic/gin v1.8.1
+	github.com/go-redis/redis/v9 v9.0.0-rc.1
 	github.com/mojocn/base64Captcha v1.3.5
-	github.com/rueian/rueidis v0.0.83
 	gopkg.in/ini.v1 v1.67.0
 	gorm.io/driver/mysql v1.4.3
 	gorm.io/gorm v1.24.0
 )
 
 require (
+	github.com/cespare/xxhash/v2 v2.1.2 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
