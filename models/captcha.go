@@ -7,7 +7,9 @@ import (
 )
 
 // 设置自带的 store
-var store = base64Captcha.DefaultMemStore
+// var store = base64Captcha.DefaultMemStore
+// 配置RedisStore  RedisStore实现base64Captcha.Store接口
+var store base64Captcha.Store = RedisStore{}
 
 func CaptchaMake() (id, b64s string, err error) {
 	var driver base64Captcha.Driver

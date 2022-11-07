@@ -5,13 +5,12 @@ import (
 	"fmt"
 	"os"
 
-	"context"
-
 	"github.com/go-redis/redis/v9" //连接Redis 7（对应go-redis/v9）
 	"gopkg.in/ini.v1"
 	//注意引用的是指定版本号V1 "gopkg.in/ini.v1"
 )
 
+var redisCoretxt = context.Background()
 var RedisDb *redis.Client
 
 // 创建 redis 链接
@@ -26,17 +25,15 @@ func init() {
 	redisPassword := config.Section("redis").Key("password").String()
 
 	//连接Redis 7（对应go-redis/v9）
-	var ctx = context.Background()
 	RedisDb = redis.NewClient(&redis.Options{
 		Addr:     redisIpPort,
 		Password: redisPassword, // set password
 		DB:       0,             // use default DB
 	})
 
-	//没写完
-	test, err := RedisDb.Ping(ctx).Result()
+	dontNeedString, err := RedisDb.Ping(redisCoretxt).Result()
 	if err != nil {
-		println(err)
+		println(err, dontNeedString)
 	}
-	println(test)
+
 }
