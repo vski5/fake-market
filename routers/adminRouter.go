@@ -13,6 +13,7 @@ func AdminRouterInit(r *gin.Engine) {
 	{
 		adminRouters.GET("/login", admin.AdminController{}.Login)
 		adminRouters.GET("/captcha", admin.LoginCaptchaController{}.DoCaptcha)
+		adminRouters.GET("/verify", admin.LoginCaptchaController{}.DoCaptcha)
 		adminRouters.POST("/dologin", admin.AdminController{}.Dolog)
 	}
 }
