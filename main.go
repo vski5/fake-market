@@ -35,5 +35,6 @@ func main() {
 	routers.FocusRouterInit(r)
 
 	ginPort := config.Section("app").Key("port").String()
+
 	r.Run(ginPort)
 }
