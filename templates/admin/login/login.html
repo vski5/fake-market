@@ -1,19 +1,24 @@
 {{ define "admin/login/login.html" }}
 {{ template "admin/public/icon.html" .}} 
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
   <title>用户登录</title>  
 	<link rel="stylesheet" href="/static/admin/css/login.css"> 
-  <script type="text/javascript" src="/static/admin/bootstrap/js/jquery-1.10.1.js"></script>
-  <script type="text/javascript" src="/static/admin/js/login.js"></script>
+    <script type="text/javascript" src="/static/admin/bootstrap/js/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="/static/admin/js/login.js"></script>
    </head>
+
 <body>
     <div class="main">
     
 <!--     <form class="form card" action="此处完整地址" method="post" id="myform"> -->
-      <form class="form card" action="/admin/dologin" method="post" id="myform">
+      <form class="form card" action="/admin/dologin" method="post" id="myform">     
+
+         
+
         <div class="card_header">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
             <path fill="none" d="M0 0h24v24H0z"></path>
@@ -33,12 +38,14 @@
         </div>
 
         <div class="field">
-            <label for="captcha">验证码</label>
+        <label for="captcha">验证码</label>
+         <input type="hidden" name="captchaId" id="captchaId" class="input">
+       <!--  验　证　码：<input id="verify" type="text" name="verifyValue"> -->
+         <input id="verify" type="text" name="verifyValue" class="input" >
 
-            <img id="captchaImg" src="" title="看不清？点击刷新" />
-            <!-- 写验证码图片的地方 -->
-            <input id="captchaText" type="text" name="captchaText">
-            <!-- <img id="captchaImg" src="" title="看不清？点击刷新" onclick="javascript:this.src='/admin/captcha?mt='+Math.random()"> -->
+       		<!-- 验证码图片 和 刷新机制 -->
+            <img id="captchaImg" name="captchaImg" src="" title="看不清？点击刷新" />
+
         </div>
 
 

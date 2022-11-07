@@ -83,3 +83,9 @@
    button:hover {
     background-color: #5f5f9c;
    }
+
+   #captchaImg{
+    top: auto;
+    cursor: pointer;
+    position: relative;
+   }
