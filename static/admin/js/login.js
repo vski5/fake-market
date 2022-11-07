@@ -7,6 +7,7 @@ var app={
         this.captchaImgChage()
     },
     getCaptcha:function(){
+        //得到图形验证码和 id
         $.get("/admin/captcha?t="+Math.random(),function(response){
             console.log(response)
             $("#captchaId").val(response.captchaId)
