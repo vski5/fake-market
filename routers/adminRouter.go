@@ -7,12 +7,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// 登录管理后台/admin/captcha
+// 登录管理后台/admin/login
 func AdminRouterInit(r *gin.Engine) {
 	adminRouters := r.Group("admin", middlewares.InitMiddleware)
 	{
 		adminRouters.GET("/login", admin.AdminController{}.Login)
-		adminRouters.GET("/captcha", admin.LoginCaptchaController{}.DoCaptcha)
+		adminRouters.GET("/verify", admin.LoginCaptchaController{}.DoCaptcha)
 		adminRouters.POST("/dologin", admin.AdminController{}.Dolog)
 	}
 }

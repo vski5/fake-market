@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/gin-gonic/gin v1.8.1
+	github.com/mojocn/base64Captcha v1.3.5
 	gopkg.in/ini.v1 v1.67.0
 	gorm.io/driver/mysql v1.4.3
 	gorm.io/gorm v1.24.0
@@ -24,7 +25,6 @@ require (
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
-	github.com/mojocn/base64Captcha v1.3.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect

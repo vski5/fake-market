@@ -6,6 +6,8 @@
 <head>
   <title>用户登录</title>  
 	<link rel="stylesheet" href="/static/admin/css/login.css"> 
+  <script type="text/javascript" src="/static/admin/bootstrap/js/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="/static/admin/js/login.js"></script>
    </head>
 <body>
     <div class="main">
@@ -32,10 +34,11 @@
 
         <div class="field">
             <label for="verify">验证码</label>
-            <input class="input" name="verify" type="text" placeholder="verify"  id="verify" >
+            <input class="input" id="verify" name="verifyValue" type="text" placeholder="verify"  id="verify" >
             <!-- 写验证码图片的地方 -->
-            <img id="verify_img" src="/admin/verify" title="看不清？点击刷新" onclick="javascript:this.src='/admin/verify?mt='+Math.random()">
+            <img id="captchaImg" src="" title="看不清？点击刷新" onclick="javascript:this.src='/admin/verify?mt='+Math.random()">
         </div>
+
 
         <div class="field">
             <button class="button" type="submit" class="submit" name="dosubmit" value="">Login</button>
