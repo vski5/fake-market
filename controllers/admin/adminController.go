@@ -33,8 +33,12 @@ func (a AdminController) Dolog(c *gin.Context) {
 	}
 	//调用验证验证码的方法
 	if flag := models.CaptchaVerify(captchId, verifyValue); flag {
-		//验证通过
 
+		//使用BaseController中的返回公共的成功页面
+		con := &AdminController{}
+		con.Success(c)
+
+		//验证通过
 		c.JSON(200, gin.H{
 			"id":   id,
 			"b64s": b64s,
