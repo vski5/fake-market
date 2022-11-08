@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type AdminController struct{}
+type AdminController struct{ BaseController }
 
 func (a AdminController) Login(c *gin.Context) {
 

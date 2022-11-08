@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type LoginCaptchaController struct{}
+type LoginCaptchaController struct{ BaseController }
 
 func (con LoginCaptchaController) DoCaptcha(c *gin.Context) {
 	//先 生成验证码

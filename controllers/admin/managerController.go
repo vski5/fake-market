@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type ManagerController struct{}
+type ManagerController struct{ BaseController }
 
 // 后台管理系统的主页
 func (a ManagerController) Index(c *gin.Context) {
