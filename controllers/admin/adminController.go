@@ -40,10 +40,8 @@ func (a AdminController) Dolog(c *gin.Context) {
 
 	} else {
 		//验证失败
-		c.JSON(200, gin.H{
-			"id":   id,
-			"b64s": b64s,
-		})
+		con := &BaseController{}
+		con.Error(c, "验证失败,返回登录界面", "admin/login")
 	}
 
 }

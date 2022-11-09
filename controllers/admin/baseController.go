@@ -14,6 +14,9 @@ func (con BaseController) Success(c *gin.Context, message string, gotourl string
 }
 
 // 返回公共的失败页面
-func (con BaseController) Error(c *gin.Context) {
-
+func (con BaseController) Error(c *gin.Context, message string, gotourl string) {
+	c.HTML(200, "admin/public/error.html", gin.H{
+		"message": message,
+		"gotourl": gotourl,
+	})
 }
