@@ -35,17 +35,15 @@ func (a AdminController) Dolog(c *gin.Context) {
 	if flag := models.CaptchaVerify(captchId, verifyValue); flag {
 
 		//使用BaseController中的返回公共的成功页面
-		con := &AdminController{}
-		con.Success(c)
+		con := &BaseController{}
+		con.Success(c, "验证成功", "admin/manager/index")
 
-		//验证通过
+	} else {
+		//验证失败
 		c.JSON(200, gin.H{
 			"id":   id,
 			"b64s": b64s,
 		})
-	} else {
-		//验证失败
-		c.JSON(http.StatusOK, "验证码验证失败")
 	}
 
 }
