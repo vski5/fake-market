@@ -21,7 +21,7 @@ func (a AdminController) Dolog(c *gin.Context) {
 	//先 生成验证码
 	id, b64s, err := models.CaptchaMake()
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println(err, id, b64s)
 	}
 	//获取前端传过来的CaptchaId和verifyValue
 	captchId := c.PostForm("captchaId")
@@ -36,12 +36,13 @@ func (a AdminController) Dolog(c *gin.Context) {
 
 		//使用BaseController中的返回公共的成功页面
 		con := &BaseController{}
-		con.Success(c, "验证成功", "admin/manager/index")
+		con.Success(c, "验证成功", "manager/index")
 
 	} else {
 		//验证失败
 		con := &BaseController{}
-		con.Error(c, "验证失败,返回登录界面", "admin/login")
+		con.Error(c, "验证失败,返回登录界面", "login")
+
 	}
 
 }
