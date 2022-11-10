@@ -6,8 +6,7 @@ import (
 	"os"
 
 	"github.com/go-redis/redis/v9" //连接Redis 7（对应go-redis/v9）
-	"gopkg.in/ini.v1"
-	//注意引用的是指定版本号V1 "gopkg.in/ini.v1"
+	"gopkg.in/ini.v1"              //注意引用的是指定版本号V1 "gopkg.in/ini.v1"
 )
 
 var redisCoretxt = context.Background()
@@ -33,7 +32,7 @@ func init() {
 
 	dontNeedString, err := RedisDb.Ping(redisCoretxt).Result()
 	if err != nil {
-		println(err, dontNeedString)
+		fmt.Println(err, dontNeedString)
 	}
 
 }

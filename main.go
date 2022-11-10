@@ -22,12 +22,18 @@ func main() {
 		"函数名": 赋值给函数名的函数（不加括号）,
 	}) */
 
+	/*写入中间件*/
+	//1."mysession"是Session服务器的名字，models.RedisDb是与redis的连接
+	/* 	r.Use(redissession.Sessions("mysession", models.RedissessionStore)) */
+
 	//读取.ini里面的数据库配置
 	config, err := ini.Load("./conf/app.ini")
 	if err != nil {
 		fmt.Printf("Fail to read file: %v", err)
 		os.Exit(1)
 	}
+
+	//redis储存cookie
 
 	//导入路由组
 	routers.AdminRouterInit(r)

@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 var ctx = context.Background()
@@ -11,6 +13,8 @@ var ctx = context.Background()
 const CAPTCHA = "captcha:"
 
 type RedisStore struct {
+}
+type CookieRedisStore struct {
 }
 
 // 实现设置captcha的方法
@@ -44,4 +48,27 @@ func (r RedisStore) Verify(id, answer string, clear bool) bool {
 	v := RedisStore{}.Get(id, clear)
 	//fmt.Println("key:"+id+";value:"+v+";answer:"+answer)
 	return v == answer
+}
+
+/*Cookie*/
+// 设置值
+// 全局共用连接var RedisDb *redis.Client 写models.RedisDb
+func (r CookieRedisStore) Set(key, value string, c *gin.Context) error {
+
+	// 设置 Session
+	err := RedisDb.Set(ctx, key, value, time.Minute*2).Err()
+	return err
+
+}
+
+// 获取值
+func (r CookieRedisStore) Get(key string, c *gin.Context) string {
+
+	value, err := RedisDb.Get(ctx, key).Result()
+	if err != nil {
+		fmt.Println(err)
+		return ""
+	}
+	return value
+
 }
