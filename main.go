@@ -33,8 +33,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	//redis储存cookie
-
 	//导入路由组
 	routers.AdminRouterInit(r)
 	routers.ManagerRouterInit(r)

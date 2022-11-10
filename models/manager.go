@@ -15,3 +15,12 @@ type Manager struct {
 func (Manager) TableName() string {
 	return "manager"
 }
+
+type Atest struct {
+	Id   int
+	Name string
+}
+
+func (Atest) TableName() string {
+	return "atests"
+}

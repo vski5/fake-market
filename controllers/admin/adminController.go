@@ -35,12 +35,23 @@ func (con AdminController) Dolog(c *gin.Context) {
 		//获取前端传过来的username和password
 		username := c.PostForm("username")
 		password := c.PostForm("password")
+
 		// 获取用户名密码 对密码进行加密
+		//后期还要写 加盐
 		passwordMD5 := models.MD5maker(password)
+
 		managerinfo := []models.Manager{}
-		/*此处有拼接SQL语句漏洞*/
+		fmt.Println("fuck444", managerinfo)
+
+		//测试
+		managerinfo222 := []models.Manager{}
+		models.DB.First(&managerinfo222)
+		fmt.Println("fuck666", managerinfo222)
+
+		/*此处有拼接SQL语句漏洞，试了一下可能没问题，但是感觉不对，只要是拼接就很有可能有问题，这里传的是MD5之后的值，所以不怕拼接*/
 		models.DB.Where("username=? AND password =?", username, passwordMD5).First(&managerinfo)
-		fmt.Println(managerinfo)
+		fmt.Println("fuck555", managerinfo)
+
 		if len(managerinfo) > 0 {
 			//设置一个session，保持登录状态
 			/* 			managerinfoSlice, _ := json.Marshal(managerinfo)
