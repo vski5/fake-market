@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 	"time"
-
-	"github.com/gin-gonic/gin"
 )
 
 var ctx = context.Background()
@@ -53,7 +51,7 @@ func (r RedisStore) Verify(id, answer string, clear bool) bool {
 /*Cookie*/
 // 设置值
 // 全局共用连接var RedisDb *redis.Client 写models.RedisDb
-func (r CookieRedisStore) Set(key, value string, c *gin.Context) error {
+func (r CookieRedisStore) Set(key, value string) error {
 
 	// 设置 Session
 	err := RedisDb.Set(ctx, key, value, time.Minute*2).Err()
@@ -62,7 +60,7 @@ func (r CookieRedisStore) Set(key, value string, c *gin.Context) error {
 }
 
 // 获取值
-func (r CookieRedisStore) Get(key string, c *gin.Context) string {
+func (r CookieRedisStore) Get(key string) string {
 
 	value, err := RedisDb.Get(ctx, key).Result()
 	if err != nil {

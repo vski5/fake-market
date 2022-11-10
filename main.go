@@ -24,7 +24,7 @@ func main() {
 
 	/*写入中间件*/
 	//1."mysession"是Session服务器的名字，models.RedisDb是与redis的连接
-	/* 	r.Use(redissession.Sessions("mysession", models.RedissessionStore)) */
+	/* 	r.Use() */
 
 	//读取.ini里面的数据库配置
 	config, err := ini.Load("./conf/app.ini")
