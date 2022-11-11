@@ -11,8 +11,8 @@ import (
 func InitAdminAuthMiddleware(c *gin.Context /* , username string */) {
 	//判断用户【管理员】是否登录
 	pathname := strings.Split(c.Request.URL.String(), "?")[0] //获取 Url 路径去掉 Get 传值
-	//获取值
-	userinfo := models.CookieRedisStore{}.Get("username")
+	//获取值【我需要一种在两个函数间传递值的方法】
+	userinfo := models.CookieRedisStore{}.Get("admin")
 	//先转换格式，再判断是否存在
 	/* userinfoStr, ok := userinfo.(string) //类型断言 */
 	if len(userinfo) > 0 {
