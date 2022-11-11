@@ -23,8 +23,9 @@ func main() {
 	}) */
 
 	/*写入中间件*/
-	//1."mysession"是Session服务器的名字，models.RedisDb是与redis的连接
-	/* 	r.Use() */
+	/*  为后台验证而生的鉴权按，写在路由比较好，不适合全局配置中间件
+	r.Use(middlewares.InitAdminAuthMiddleware(c * gin.Context))
+	*/
 
 	//读取.ini里面的数据库配置
 	config, err := ini.Load("./conf/app.ini")

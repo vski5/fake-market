@@ -20,7 +20,7 @@ func AdminRouterInit(r *gin.Engine) {
 
 // 管理后台的管理
 func ManagerRouterInit(r *gin.Engine) {
-	adminRouters := r.Group("admin/manager", middlewares.InitMiddleware)
+	adminRouters := r.Group("admin/manager", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
 	{
 		adminRouters.GET("/index", admin.ManagerController{}.Index) //Manager首页admin/manager/index
 		adminRouters.GET("/add", admin.ManagerController{}.Add)
@@ -31,7 +31,7 @@ func ManagerRouterInit(r *gin.Engine) {
 
 // 轮播图管理
 func FocusRouterInit(r *gin.Engine) {
-	adminRouters := r.Group("admin/focus", middlewares.InitMiddleware)
+	adminRouters := r.Group("admin/focus", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
 	{
 		adminRouters.GET("/index", admin.FocusController{}.Index)
 		adminRouters.GET("/add", admin.FocusController{}.Add)
