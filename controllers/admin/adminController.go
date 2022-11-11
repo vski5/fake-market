@@ -2,7 +2,6 @@ package admin
 
 import (
 	"fake-market/models"
-	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
@@ -41,7 +40,6 @@ func (con AdminController) Dolog(c *gin.Context) {
 		passwordMD5 := models.MD5maker(password)
 
 		managerinfo := []models.Manager{}
-		fmt.Println("fuck444", managerinfo)
 
 		/*此处有拼接SQL语句漏洞，试了一下可能没问题，但是感觉不对，只要是拼接就很有可能有问题，这里传的是MD5之后的值，所以不怕拼接*/
 		models.DB.Where("username=? AND password =?", username, passwordMD5).First(&managerinfo)
