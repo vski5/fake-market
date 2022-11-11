@@ -3,6 +3,7 @@ package middlewares
 import (
 	"encoding/json"
 	"fake-market/models"
+	"fmt"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -20,11 +21,13 @@ func InitAdminAuthMiddleware(c *gin.Context /* , username string */) {
 
 		json.Unmarshal([]byte(userinfo), &u)
 
-		if !(len(u) > 0 && u[0].Username != "") {
+		if len(u) > 0 && u[0].Username != "" {
 
-			if pathname != "/admin/login" && pathname != "/admin/doLogin" && pathname != "/admin/captcha" {
-				c.Redirect(302, "/admin/login")
-			}
+			/* 			if pathname != "/admin/login" && pathname != "/admin/doLogin" && pathname != "/admin/captcha" {
+			   				c.Redirect(302, "/admin/login")
+			   			}
+			*/
+			fmt.Println("成功跳过验证登录的中间件")
 		}
 	} else {
 		if pathname != "/admin/login" && pathname != "/admin/doLogin" && pathname != "/admin/captcha" {
