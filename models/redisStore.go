@@ -51,7 +51,7 @@ func (r RedisStore) Verify(id, answer string, clear bool) bool {
 /*Cookie*/
 // 设置值
 // 全局共用连接var RedisDb *redis.Client 写models.RedisDb
-func (r CookieRedisStore) Set(key, value string) error {
+func (r CookieRedisStore) Set(key string, value interface{}) error {
 
 	// 设置 Session
 	err := RedisDb.Set(ctx, key, value, time.Minute*2).Err()
@@ -60,7 +60,7 @@ func (r CookieRedisStore) Set(key, value string) error {
 }
 
 // 获取值
-func (r CookieRedisStore) Get(key string) string {
+func (r CookieRedisStore) Get(key string) interface{} {
 
 	value, err := RedisDb.Get(ctx, key).Result()
 	if err != nil {
