@@ -15,7 +15,9 @@ func InitAdminAuthMiddleware(c *gin.Context /* , username string */) {
 	pathname := strings.Split(c.Request.URL.String(), "?")[0] //获取 Url 路径去掉 Get 传值
 	//获取值【我需要一种在两个函数间传递值的方法】
 	/* admincUsername := c.PostForm("username") */
-	userinfo := models.CookieRedisStore{}.Get("admin")
+	cookie111, _ := c.Request.Cookie("admin_cookie")
+	userinfo := models.CookieRedisStore{}.Get(cookie111.Value)
+	/* userinfo := models.CookieRedisStore{}.Get("admin") */
 	//先类型断言判断是否为string，确定之后才能进行下一步
 	//类型断言
 	userinfoStr, ok := userinfo.(string)
