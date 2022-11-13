@@ -12,13 +12,15 @@ import (
 func InitAdminAuthMiddleware(c *gin.Context /* , username string */) {
 
 	//判断用户【管理员】是否登录
-	pathname := strings.Split(c.Request.URL.String(), "?")[0] //获取 Url 路径去掉 Get 传值
-	//获取值【我需要一种在两个函数间传递值的方法】
+
 	/* admincUsername := c.PostForm("username") */
-	cookie111, err := c.Request.Cookie("admin_cookie")
-	if err == nil {
+	cookie111, _ := c.Request.Cookie("admin_cookie")
+	if cookie111 == nil {
 		c.Redirect(302, "/admin/login")
 	} else {
+		//获取 Url 路径去掉 Get 传值
+		pathname := strings.Split(c.Request.URL.String(), "?")[0]
+
 		userinfo := models.CookieRedisStore{}.Get(cookie111.Value)
 
 		/* userinfo := models.CookieRedisStore{}.Get("admin") */
