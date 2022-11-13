@@ -2,6 +2,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"time"
 )
@@ -51,10 +52,15 @@ func (r RedisStore) Verify(id, answer string, clear bool) bool {
 /*Cookie*/
 // 设置值
 // 全局共用连接var RedisDb *redis.Client 写models.RedisDb
-func (r CookieRedisStore) Set(key string, value interface{}) error {
+func (r CookieRedisStore) Set(key string, setValue interface{}) error {
+	var u []Manager
 
+	json.Unmarshal([]byte(key), &u)
+	/*
+		setValue := u */
 	// 设置 Session
-	err := RedisDb.Set(ctx, key, value, time.Minute*2).Err()
+	err := RedisDb.Set(ctx, key, setValue, time.Minute*2).Err()
+
 	return err
 
 }

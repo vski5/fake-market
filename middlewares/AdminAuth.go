@@ -10,6 +10,7 @@ import (
 )
 
 func InitAdminAuthMiddleware(c *gin.Context /* , username string */) {
+
 	//判断用户【管理员】是否登录
 	pathname := strings.Split(c.Request.URL.String(), "?")[0] //获取 Url 路径去掉 Get 传值
 	//获取值【我需要一种在两个函数间传递值的方法】
@@ -24,15 +25,16 @@ func InitAdminAuthMiddleware(c *gin.Context /* , username string */) {
 
 			json.Unmarshal([]byte(userinfoStr), &u)
 
+			//如果验证成功
 			if len(u) > 0 && u[0].Username != "" {
 
-				/* 			if pathname != "/admin/login" && pathname != "/admin/doLogin" && pathname != "/admin/captcha" {
-					   c.Redirect(302, "/admin/login")
-				   }
-				*/
+				if pathname != "/admin/login" && pathname != "/admin/doLogin" && pathname != "/admin/captcha" {
+					c.Redirect(302, "/admin/login")
+				}
+
 				fmt.Println("成功跳过验证登录的中间件")
 			}
-		} else {
+		} else { //如果验证失败
 			if pathname != "/admin/login" && pathname != "/admin/doLogin" && pathname != "/admin/captcha" {
 				c.Redirect(302, "/admin/login")
 			}

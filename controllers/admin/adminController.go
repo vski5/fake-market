@@ -52,6 +52,7 @@ func (con AdminController) Dolog(c *gin.Context) {
 			if errCookie != nil {
 				return
 			}
+
 			//使用BaseController中的返回公共的成功页面
 			/* con := &BaseController{} */
 			con.Success(c, "登录成功", "manager/index")
