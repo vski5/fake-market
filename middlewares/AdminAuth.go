@@ -17,7 +17,7 @@ func InitAdminAuthMiddleware(c *gin.Context /* , username string */) {
 	/* admincUsername := c.PostForm("username") */
 	cookie111, err := c.Request.Cookie("admin_cookie")
 	if err == nil {
-		c.Redirect(302, "admin/login")
+		c.Redirect(302, "/admin/login")
 	} else {
 		userinfo := models.CookieRedisStore{}.Get(cookie111.Value)
 
