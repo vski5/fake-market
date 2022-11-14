@@ -81,3 +81,16 @@ input[type=file]{
 .logo{
 	height:48px;
 }
+/* 平分侧边栏和主界面 */
+#display-flex-parent{
+    width: 1000px; /* Example width */
+    height: 100px; /* Example height */
+    display: table;
+    table-layout: fixed;
+    }
+    .display-flex {
+    display:table-row;
+    }
+    .display-flex{
+    display: table-cell;
+    }

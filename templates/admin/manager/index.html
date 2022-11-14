@@ -4,8 +4,10 @@
 <!-- CSS -->
 {{ template "admin/public/managerHeader.html" .}}
 
+<div class="display-flex-parent">
 
 <!-- 保证水平排序 -->
+
 <div class="display-flex">
     <!-- 左侧栏 -->
 <div>{{ template "admin/public/managerNav.html" .}}</div>
@@ -78,9 +80,9 @@
 </div>
 
 </div class="display-flex">
+</div class="display-flex-parent">
 
 
-</body>
 </html>
 
 {{end}}
