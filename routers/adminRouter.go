@@ -39,3 +39,16 @@ func FocusRouterInit(r *gin.Engine) {
 		adminRouters.GET("/delete", admin.FocusController{}.Delete)
 	}
 }
+
+// 管理员权限管理
+func RoleRouterInit(r *gin.Engine) {
+	adminRouters := r.Group("admin/role", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
+	{
+		adminRouters.GET("/", admin.RoleController{}.Index)
+		adminRouters.GET("/add", admin.RoleController{}.Add)
+		adminRouters.POST("/doAdd", admin.RoleController{}.DoAdd)
+		adminRouters.GET("/edit", admin.RoleController{}.Edit)
+		adminRouters.POST("/doEdit", admin.RoleController{}.DoEdit)
+		adminRouters.GET("/delete", admin.RoleController{}.Delete)
+	}
+}
