@@ -1,16 +1,9 @@
 {{ define "admin/manager/add.html" }}
-{{ template "admin/public/icon.html" .}} 
-
-<!-- CSS -->
-{{ template "admin/public/managerHeader.html" .}}
+{{ template "admin/public/page_header.html" .}}
 
 
-<!-- 保证水平排序 -->
-<div class="panel-body-parent">
-    <!-- 左侧栏 -->
-    <div  >{{ template "admin/public/managerNav.html" .}}</div>
 
-<div class="display-flex">
+<div class="panel panel-default">
     <div class="panel-heading">
         增加管理员
     </div>
@@ -44,7 +37,7 @@
 
 </div>
 
-</div>
+
 </body>
 
 </html>
