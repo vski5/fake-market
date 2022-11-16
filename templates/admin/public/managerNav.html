@@ -1,21 +1,25 @@
 {{ define "admin/public/managerNav.html" }}
 
 
+
 <!-- 顶部的HTML -->
-<nav class="navbar navbar-inverse" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
+
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="display-flexdiv1" >
+            <div class="navbar-header">
+            </div>
+            <div class="collapse navbar-collapse" id="example-navbar-collapse">           
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a>欢迎您,admin</a>
+                    </li>
+                    <li><a href="#">安全退出</a><!-- 这里写删除cookie的路由 -->
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="collapse navbar-collapse" id="example-navbar-collapse">           
-            <ul class="nav navbar-nav navbar-right">
-                <li><a>欢迎您,admin</a>
-                </li>
-                <li><a href="#">安全退出</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+    </nav>
+    
+
 <!-- 左侧的HTML -->
 <ul class="aside">
          		
@@ -26,7 +30,7 @@
             <!-- manager首页 -->
             <li  class="list-group-item"> <a href="/admin/manager/index" target="rightMain"> 返回首页</a></li>
             <!-- 管理员列表 -->
-            <li  class="list-group-item"> <a href="" target="rightMain"> 管理员列表</a></li>
+            <li  class="list-group-item"> <a href="/admin/manager/edit" target="rightMain"> 管理员列表</a></li>
             <!-- 增加管理 -->
             <li class="list-group-item"> <a href="/admin/manager/add" target="rightMain">增加管理员</a></li>
         </ul>
