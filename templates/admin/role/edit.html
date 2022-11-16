@@ -1,27 +1,23 @@
-{{ define "admin/manager/edit.html" }}
-{{ template "admin/public/icon.html" .}} 
-
-<!-- CSS -->
-{{ template "admin/public/managerHeader.html" .}}
+{{ define "admin/role/edit.html" }}
+{{ template "admin/public/page_header.html" .}}
 
 
-<!-- 保证水平排序 -->
-<div class="display-flex">
-    <!-- 左侧栏 -->
-<div>{{ template "admin/public/managerNav.html" .}}</div>
+
 <div class="panel panel-default">
     <div class="panel-heading">
-        修改角色
+       编辑角色
     </div>
     <div class="panel-body">
         <div class="table-responsive input-form">
-            <form action="admin/role/doEdit" method="post">
+            <form action="/admin/role/doEdit" method="post">
+                <input type="hidden" name="id" value="{{.role.Id}}">
                 <ul>
-                    <li> 角色名称: <input type="text" name="title" /></li>
+                    <li> 角色名称: <input type="text" name="title" value="{{.role.Title}}" /></li>
+
 
                     <li>
-                        商品描述:
-                        <textarea name="description" id="" cols="60" rows="8"></textarea>
+                        角色描述:
+                        <textarea name="description" id="" cols="60" rows="8">{{.role.Description}}</textarea>
                     </li>
 
                     <li>
@@ -37,7 +33,6 @@
     </div>
 
 
-</div>
 </div>
 
 
