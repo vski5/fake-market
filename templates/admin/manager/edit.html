@@ -2,7 +2,7 @@
 {{ template "admin/public/page_header.html" .}}
 
 
-
+{{ template "admin/public/page_aside.html" .}}
 <div class="panel panel-default">
     <div class="panel-heading">
         修改管理员
@@ -11,7 +11,7 @@
         <div class="table-responsive input-form">
             <form action="/doAdd" method="post">
                 <ul>
-                    <li> 商品名称: <input type="text" name="title" /></li>
+                    <li> 管理员: <input type="text" name="title" /></li>
 
                     <li> 商品图片: <input type="file" name="pic" /></li>
                     <li> 商品价格: <input type="text" name="price" /></li>

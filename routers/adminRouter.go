@@ -18,7 +18,7 @@ func AdminRouterInit(r *gin.Engine) {
 	}
 }
 
-// 管理后台的管理
+// 管理后台的管理员的管理
 func ManagerRouterInit(r *gin.Engine) {
 	adminRouters := r.Group("admin/manager", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
 	{
@@ -44,7 +44,7 @@ func FocusRouterInit(r *gin.Engine) {
 func RoleRouterInit(r *gin.Engine) {
 	adminRouters := r.Group("admin/role", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
 	{
-		adminRouters.GET("/", admin.RoleController{}.Index)
+		adminRouters.GET("/index", admin.RoleController{}.Index)
 		adminRouters.GET("/add", admin.RoleController{}.Add)
 		adminRouters.POST("/doAdd", admin.RoleController{}.DoAdd)
 		adminRouters.GET("/edit", admin.RoleController{}.Edit)
