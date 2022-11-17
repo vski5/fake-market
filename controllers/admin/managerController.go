@@ -26,7 +26,8 @@ func (a ManagerController) Add(c *gin.Context) {
 		"roleList": roleList,
 	})
 }
-//执行添加manager
+
+// 执行添加manager
 func (con ManagerController) DoAdd(c *gin.Context) {
 	roleId, err1 := models.Int(c.PostForm("role_id"))
 	if err1 != nil {
@@ -66,8 +67,8 @@ func (con ManagerController) DoAdd(c *gin.Context) {
 		return
 	}
 
-	con.Success(c, "增加管理员成功", "/admin/manager")
-	c.HTML(200, "admin/manager/add.html", gin.H{})
+	con.Success(c, "增加管理员成功", "/admin/manager/index")
+
 }
 
 // 修改商品
