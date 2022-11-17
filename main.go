@@ -13,13 +13,7 @@ import (
 
 func main() {
 	r := gin.Default()
-
-	//加载HTML资源
-	r.LoadHTMLGlob("templates/**/**/*")
-	//配置静态资源   第一个参数表示路由, 第二个参数表示映射的目录
-	r.Static("/static", "./static")
-
-	//自定义模板函数  注意要把这个函数放在加载模板前
+	//自定义模板函数   注意顺序，注册模板函数需要在加载模板上面
 	/* r.SetFuncMap(template.FuncMap{
 		"函数名": 赋值给函数名的函数（不加括号）,
 	}) */
@@ -27,6 +21,10 @@ func main() {
 	r.SetFuncMap(template.FuncMap{
 		"UnixToToTime": models.UnixToTime,
 	})
+	//加载HTML资源
+	r.LoadHTMLGlob("templates/**/**/*")
+	//配置静态资源   第一个参数表示路由, 第二个参数表示映射的目录
+	r.Static("/static", "./static")
 
 	/*写入中间件*/
 	/*  为后台验证而生的鉴权按，写在路由比较好，不适合全局配置中间件
