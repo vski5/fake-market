@@ -16,10 +16,10 @@ func (a ManagerController) Index(c *gin.Context) {
 	c.HTML(200, "admin/manager/index.html", gin.H{})
 }
 
-// 增加商品
+// 增加商品的页面
 func (a ManagerController) Add(c *gin.Context) {
 	//获取所有manager
-	roleList := []models.Manager{}
+	roleList := []models.Role{} //注意，这里是role，不是manager，manager的状态/权限由role表决定
 	models.DB.Find(&roleList)
 
 	c.HTML(200, "admin/manager/add.html", gin.H{
