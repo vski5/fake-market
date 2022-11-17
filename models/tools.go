@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"strconv"
+	"time"
 )
 
 // MD5加密
@@ -22,4 +23,11 @@ func Int(str string) (int, error) {
 func String(n int) string {
 	str := strconv.Itoa(n)
 	return str
+}
+
+// 获取int类型的Unix时间戳
+func GetUnix() int {
+	timeUnix := time.Now().Unix()
+	n := int(timeUnix)
+	return n
 }

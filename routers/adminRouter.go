@@ -24,6 +24,7 @@ func ManagerRouterInit(r *gin.Engine) {
 	{
 		adminRouters.GET("/index", admin.ManagerController{}.Index) //Manager首页admin/manager/index
 		adminRouters.GET("/add", admin.ManagerController{}.Add)
+		adminRouters.POST("/doAdd", admin.ManagerController{}.DoAdd)
 		adminRouters.GET("/edit", admin.ManagerController{}.Edit)
 		adminRouters.GET("/delete", admin.ManagerController{}.Delete)
 	}
