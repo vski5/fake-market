@@ -3,7 +3,7 @@
 
 {{ template "admin/public/page_header.html" .}}
 {{ template "admin/public/page_aside.html" .}}
-<div class="panel panel-default">
+<!-- <div class="panel panel-default">
     <div class="panel-heading">
         搜索
     </div>
@@ -15,35 +15,35 @@
             </div>
         </form>
     </div>
-</div>
+</div> -->
 <!--
     列表展示
 -->
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
-        <tr class="th">
-            <th>编号</th>
-            <th>图标</th>
-            <th>名称</th>
-            <th>价格</th>
-            <th>邮费</th>
-           
-            <th class="text-center">操作</th>
-        </tr>
+            <tr class="th">
+                <th>管理员名称</th>
+                <th>管理员电话</th>
+                <th>管理员邮箱</th>
+                <th>管理员角色</th>  
+                <th>创建时间</th>                                                  
+                <th class="text-center">操作</th>
+            </tr>
         </thead>
         <tbody>
-
+        {{range $key,$value := .managerList}}
         <tr>
-            <td>1</td>
-            <td>图标</td>
-            <td>背包1111111</td>
-            <td>20元</td>
-            <td>10元</td>
+            <td>{{$value.Username}}</td>
+            <td>{{$value.Mobile}}</td>
+            <td>{{$value.Email}}</td>
+            <td>{{$value.Role.Title}}</td>
+            <td>{{UnixToToTime $value.AddTime}}</td>
           
             <td class="text-center">修改  删除</td>
         </tr>
-           
+        {{end}}
+
         </tbody>
     </table>
 </div>

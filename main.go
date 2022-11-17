@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fake-market/models"
 	"fake-market/routers"
 	"fmt"
 	"os"
+	"text/template"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/ini.v1" //注意引用的是指定版本号V1 "gopkg.in/ini.v1"
@@ -21,6 +23,10 @@ func main() {
 	/* r.SetFuncMap(template.FuncMap{
 		"函数名": 赋值给函数名的函数（不加括号）,
 	}) */
+
+	r.SetFuncMap(template.FuncMap{
+		"UnixToToTime": models.UnixToTime,
+	})
 
 	/*写入中间件*/
 	/*  为后台验证而生的鉴权按，写在路由比较好，不适合全局配置中间件

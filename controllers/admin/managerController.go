@@ -13,7 +13,11 @@ type ManagerController struct{ BaseController }
 
 // 后台管理系统的主页
 func (a ManagerController) Index(c *gin.Context) {
-	c.HTML(200, "admin/manager/index.html", gin.H{})
+	managerList := []models.Manager{}
+	models.DB.Preload("Role").Find(&managerList)
+	c.HTML(200, "admin/manager/index.html", gin.H{
+		"managerList": managerList,
+	})
 }
 
 // 增加商品的页面
