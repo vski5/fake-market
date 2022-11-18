@@ -39,8 +39,11 @@
             <td>{{$value.Email}}</td>
             <td>{{$value.Role.Title}}</td>
             <td>{{UnixToToTime $value.AddTime}}</td>
-          
-            <td class="text-center">修改  删除</td>
+            <td class="text-center">
+                <a href="/admin/manager/edit?id={{$value.Id}}">修改</a> 
+                <a class="delete" href="/admin/manager/delete?id={{$value.Id}}">删除</a>
+            </td>
+
         </tr>
         {{end}}
 
