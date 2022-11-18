@@ -62,7 +62,7 @@ func (con AdminController) Dolog(c *gin.Context) {
 
 			//使用BaseController中的返回公共的成功页面
 			/* con := &BaseController{} */
-			con.Success(c, "登录成功", "manager/index")
+			con.Success(c, "登录成功", "/admin/manager/index")
 		} else {
 			con.Error(c, "用户名或者密码错误", "/admin/login")
 		}
