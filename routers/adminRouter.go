@@ -56,7 +56,7 @@ func RoleRouterInit(r *gin.Engine) {
 }
 
 // 管理员权限管理 的 展示
-func RoleRouterInit(r *gin.Engine) {
+func AccessRouterInit(r *gin.Engine) {
 	adminRouters := r.Group("admin/access", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
 	{
 		adminRouters.GET("/index", admin.AccessController{}.Index)
