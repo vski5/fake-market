@@ -99,53 +99,52 @@ func (con ManagerController) Edit(c *gin.Context) {
 
 // 执行 修改manager 的页面
 func (con ManagerController) DoEdit(c *gin.Context) {
-	id, err := models.Int(c.Query("id"))
-	if err != nil {
-		con.Error(c, "传入数据错误", "/admin/manager/index")
+	id, err1 := models.Int(c.PostForm("id"))
+	if err1 != nil {
+		con.Error(c, "传入数据错误", "/admin/manager")
+		return
+	}
+	roleId, err2 := models.Int(c.PostForm("role_id"))
+	if err2 != nil {
+		con.Error(c, "传入数据错误", "/admin/manager")
+		return
+	}
+	username := strings.Trim(c.PostForm("username"), " ")
+	password := strings.Trim(c.PostForm("password"), " ")
+	email := strings.Trim(c.PostForm("email"), " ")
+	mobile := strings.Trim(c.PostForm("mobile"), " ")
+	mobileInt, errStr := strconv.Atoi(mobile)
+
+	if len(mobile) > 11 || errStr != nil {
+		con.Error(c, "mobile长度不合法", "/admin/manager/edit?id="+models.String(id))
+		return
 	} else {
-		// 判断管理是否存在,回传数值
-		/* 		managerList := []models.Manager{}
-		   		//查询对应数值
-		   		models.DB.Where("id=?", id).Find(&managerList)
-		   		c.HTML(200, "admin/manager/edit.html", gin.H{
-		   			"managerList": managerList,
-		   		}) */
+		// 执行修改
+		manager := models.Manager{Id: id}
+		models.DB.Find(&manager)
+		manager.Username = username
+		manager.Email = email
+		manager.Mobile = mobileInt
+		manager.RoleId = roleId
 
-		username := strings.Trim(c.PostForm("username"), " ")
-		password := strings.Trim(c.PostForm("password"), " ")
-		email := strings.Trim(c.PostForm("email"), " ")
-		mobile, _ := strconv.Atoi(strings.Trim(c.PostForm("mobile"), " "))
+		//注意：判断密码是否为空 为空表示不修改密码 不为空表示修改密码
 
-		// 用户名和密码长度是否合法
-		if len(username) < 2 || len(password) < 6 {
-			con.Error(c, "用户名或者密码的长度不合法", "/admin/manager/index")
-			return
-		}
-
-		// 判断管理是否存在
-		managerList := []models.Manager{}
-		models.DB.Where("id=?", id).Find(&managerList)
-		if len(managerList) > 0 {
-			// 执行增加管理员
-			manager := models.Manager{
-				Username: username,
-				Password: models.MD5maker(password),
-				Email:    email,
-				Mobile:   mobile,
-				Status:   1,
-				AddTime:  models.GetUnix(),
-			}
-
-			err2 := models.DB.Model(&manager).Select("Username", "Password", "Email", "Mobile", "Status", "AddTime").Updates(manager)
-			if err2 != nil {
-				con.Error(c, "更新管理员失败", "/admin/manager/index")
+		if password != "" {
+			//判断密码长度是否合法
+			if len(password) < 6 {
+				con.Error(c, "密码的长度不合法 密码长度不能小于6位", "/admin/manager/edit?id="+models.String(id))
 				return
 			}
-
-			con.Success(c, "更新管理员成功", "/admin/manager/index")
+			manager.Password = models.MD5maker(password)
 		}
-
+		err3 := models.DB.Save(&manager).Error
+		if err3 != nil {
+			con.Error(c, "修改数据失败", "/admin/manager/edit?id="+models.String(id))
+			return
+		}
 	}
+
+	con.Success(c, "修改数据成功", "/admin/manager/index")
 }
 
 // 删除商品
