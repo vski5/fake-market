@@ -26,7 +26,8 @@ func ManagerRouterInit(r *gin.Engine) {
 		adminRouters.GET("/add", admin.ManagerController{}.Add)
 		adminRouters.POST("/doAdd", admin.ManagerController{}.DoAdd)
 		adminRouters.GET("/edit", admin.ManagerController{}.Edit)
-		adminRouters.GET("/delete", admin.ManagerController{}.Delete)
+		adminRouters.POST("/doEdit", admin.ManagerController{}.DoEdit)
+		adminRouters.POST("/delete", admin.ManagerController{}.Delete)
 	}
 }
 

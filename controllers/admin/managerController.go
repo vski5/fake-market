@@ -77,21 +77,23 @@ func (con ManagerController) DoAdd(c *gin.Context) {
 
 // 修改 manager 的页面
 func (con ManagerController) Edit(c *gin.Context) {
-
-	managerList := []models.Manager{}
-	models.DB.Preload("Role").Find(&managerList)
+	//获取管理员
 	id, err := models.Int(c.Query("id"))
 	if err != nil {
-		con.Error(c, "传入数据错误", "/admin/manager/index")
-	} else {
-		// 判断管理是否存在,回传数值
-		managerList := []models.Manager{}
-		//查询对应数值
-		models.DB.Where("id=?", id).Find(&managerList)
-		c.HTML(200, "admin/manager/edit.html", gin.H{
-			"managerList": managerList,
-		})
+		con.Error(c, "传入数据错误", "/admin/manager")
+		return
 	}
+	manager := models.Manager{Id: id}
+	models.DB.Find(&manager)
+
+	//获取所有的角色
+	roleList := []models.Role{}
+	models.DB.Find(&roleList)
+
+	c.HTML(http.StatusOK, "admin/manager/edit.html", gin.H{
+		"manager":  manager,
+		"roleList": roleList,
+	})
 
 }
 
