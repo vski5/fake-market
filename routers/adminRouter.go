@@ -42,7 +42,7 @@ func FocusRouterInit(r *gin.Engine) {
 	}
 }
 
-// 管理员权限管理
+// 管理员角色(组)管理
 func RoleRouterInit(r *gin.Engine) {
 	adminRouters := r.Group("admin/role", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
 	{
@@ -52,5 +52,15 @@ func RoleRouterInit(r *gin.Engine) {
 		adminRouters.GET("/edit", admin.RoleController{}.Edit)
 		adminRouters.POST("/doEdit", admin.RoleController{}.DoEdit)
 		adminRouters.GET("/delete", admin.RoleController{}.Delete)
+	}
+}
+
+// 管理员权限管理 的 展示
+func RoleRouterInit(r *gin.Engine) {
+	adminRouters := r.Group("admin/access", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
+	{
+		adminRouters.GET("/index", admin.AccessController{}.Index)
+		adminRouters.GET("/add", admin.AccessController{}.Add)
+		adminRouters.POST("/doAdd", admin.AccessController{}.DoAdd)
 	}
 }
