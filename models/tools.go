@@ -16,6 +16,7 @@ func MD5maker(text string) string {
 // 表示把string转换成int
 func Int(str string) (int, error) {
 	n, err := strconv.Atoi(str)
+
 	return n, err
 }
 
