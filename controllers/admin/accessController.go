@@ -1,6 +1,12 @@
 package admin
 
-import "github.com/gin-gonic/gin"
+import (
+	"fake-market/models"
+	"fmt"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 type AccessController struct {
 	BaseController
@@ -8,11 +14,22 @@ type AccessController struct {
 
 func (con AccessController) Index(c *gin.Context) {
 
-	c.HTML(200, "admin/access/index.html", gin.H{})
+	accessList := []models.Access{}
+	models.DB.Where("module_id=?", 0).Preload("AccessItem").Find(&accessList)
+
+	fmt.Printf("%#v", accessList)
+	c.HTML(http.StatusOK, "admin/access/index.html", gin.H{
+		"accessList": accessList,
+	})
+
 }
 func (con AccessController) Add(c *gin.Context) {
-
-	c.HTML(200, "admin/access/add.html", gin.H{})
+	//获取顶级模块
+	accessList := []models.Access{}
+	models.DB.Where("module_id=?", 0).Find(&accessList)
+	c.HTML(http.StatusOK, "admin/access/add.html", gin.H{
+		"accessList": accessList,
+	})
 }
 func (con AccessController) DoAdd(c *gin.Context) {
 
