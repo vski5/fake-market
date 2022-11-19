@@ -62,5 +62,7 @@ func AccessRouterInit(r *gin.Engine) {
 		adminRouters.GET("/index", admin.AccessController{}.Index)
 		adminRouters.GET("/add", admin.AccessController{}.Add)
 		adminRouters.POST("/doAdd", admin.AccessController{}.DoAdd)
+		adminRouters.GET("/edit", admin.AccessController{}.Edit)
+		adminRouters.GET("/doEdit", admin.AccessController{}.DoEdit)
 	}
 }

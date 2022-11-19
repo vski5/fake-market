@@ -35,3 +35,11 @@ func (con AccessController) DoAdd(c *gin.Context) {
 
 	c.String(200, "DoAdd")
 }
+func (con AccessController) Edit(c *gin.Context) {
+
+	c.String(200, "DoAdd")
+}
+func (con AccessController) DoEdit(c *gin.Context) {
+
+	c.String(200, "DoAdd")
+}
