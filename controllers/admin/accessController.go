@@ -101,6 +101,39 @@ func (con AccessController) Edit(c *gin.Context) {
 
 }
 func (con AccessController) DoEdit(c *gin.Context) {
+	id, err1 := models.Int(c.PostForm("id"))
+	moduleName := strings.Trim(c.PostForm("module_name"), " ")
+	actionName := c.PostForm("action_name")
+	accessType, err2 := models.Int(c.PostForm("type"))
+	url := c.PostForm("url")
+	moduleId, err3 := models.Int(c.PostForm("module_id"))
+	sort, err4 := models.Int(c.PostForm("sort"))
+	status, err5 := models.Int(c.PostForm("status"))
+	description := c.PostForm("description")
+	if err1 != nil || err2 != nil || err3 != nil || err4 != nil || err5 != nil {
+		BaseController{}.Error(c, "传入参数错误", "/admin/access")
+		return
+	}
+	if moduleName == "" {
+		BaseController{}.Error(c, "模块名称不能为空", "/admin/access/edit?id="+models.String(id))
+		return
+	}
 
-	c.String(200, "DoEdit")
+	access := models.Access{Id: id}
+	models.DB.Find(&access)
+	access.ModuleName = moduleName
+	access.Type = accessType
+	access.ActionName = actionName
+	access.Url = url
+	access.ModuleId = moduleId
+	access.Sort = sort
+	access.Description = description
+	access.Status = status
+
+	err := models.DB.Save(&access).Error
+	if err != nil {
+		BaseController{}.Error(c, "修改数据", "/admin/access/edit?id="+models.String(id))
+	} else {
+		BaseController{}.Success(c, "修改数据成功", "/admin/access/edit?id="+models.String(id))
+	}
 }
