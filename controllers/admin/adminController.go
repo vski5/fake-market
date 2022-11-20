@@ -50,7 +50,7 @@ func (con AdminController) Dolog(c *gin.Context) {
 			//设置cookie，第5个参数表示所有20011111.xyz的二级域名（比如a.20011111.xyz b.20011111.xyz）都共享一个cookie
 			//第4个表示路径，/admin 路径的共享这个cookie，如果设置为/，就是所有都共享。
 			//第一个是cookie的名字
-			c.SetCookie("admin_cookie", username, 360, "/admin", ".20011111.xyz", false, false)
+			c.SetCookie("admin_cookie", username, 3600, "/admin", ".20011111.xyz", false, false)
 
 			//设置一个session，保持登录状态
 			/* 			managerinfoSlice, _ := json.Marshal(managerinfo)
