@@ -92,7 +92,7 @@ func (con AccessController) Edit(c *gin.Context) {
 	models.DB.Find(&access)
 	//获取顶级模块
 	accessList := []models.Access{}
-	models.DB.Where("module_id=?", 0).Find(&accessList)
+	models.DB.Where("module_id=?", id).Find(&accessList)
 
 	c.HTML(http.StatusOK, "admin/access/edit.html", gin.H{
 		"access":     access,
