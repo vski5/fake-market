@@ -86,10 +86,10 @@ func (con AccessController) Edit(c *gin.Context) {
 		return
 	}
 	// 用id实例化access结构体，方便查找
-	access := models.Access{
+	access := &models.Access{
 		Id: id,
 	}
-	models.DB.Find(&access)
+	models.DB.Find(access)
 	//获取顶级模块
 	accessList := []models.Access{}
 	models.DB.Where("module_id=?", id).Find(&accessList)
