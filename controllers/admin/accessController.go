@@ -81,8 +81,26 @@ func (con AccessController) DoAdd(c *gin.Context) {
 
 }
 func (con AccessController) Edit(c *gin.Context) {
+	// 获取id
+	id, err1 := models.Int(c.Query("id"))
+	if err1 != nil {
+		con.Error(c, "获取id失败", "/admin/access/index")
+		return
+	}
+	// 用id实例化access结构体，方便查找
+	access := models.Access{
+		Id: id,
+	}
+	models.DB.Find(&access)
+	//获取顶级模块
+	accessList := []models.Access{}
+	models.DB.Where("module_id=?", 0).Find(&accessList)
 
-	c.String(200, "Edit")
+	c.HTML(http.StatusOK, "admin/access/edit.html", gin.H{
+		"access":     access,
+		"accessList": accessList,
+	})
+
 }
 func (con AccessController) DoEdit(c *gin.Context) {
 
