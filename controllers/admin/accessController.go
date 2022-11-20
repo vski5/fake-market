@@ -137,3 +137,27 @@ func (con AccessController) DoEdit(c *gin.Context) {
 		BaseController{}.Success(c, "修改数据成功", "/admin/access/edit?id="+models.String(id))
 	}
 }
+func (con AccessController) Delete(c *gin.Context) {
+	id, err := models.Int(c.Query("id"))
+	if err != nil {
+		BaseController{}.Error(c, "传入数据错误", "/admin/access")
+	} else {
+		//获取我们要删除的数据
+		access := models.Access{Id: id}
+		models.DB.Find(&access)
+		if access.ModuleId == 0 { //顶级模块
+			accessList := []models.Access{}
+			models.DB.Where("module_id = ?", access.Id).Find(&accessList)
+			if len(accessList) > 0 {
+				BaseController{}.Error(c, "当前模块下面有菜单或者操作，请删除菜单或者操作以后再来删除这个数据", "/admin/access")
+			} else {
+				models.DB.Delete(&access)
+				BaseController{}.Success(c, "删除数据成功", "/admin/access")
+			}
+		} else { //操作 或者菜单
+			models.DB.Delete(&access)
+			BaseController{}.Success(c, "删除数据成功", "/admin/access")
+		}
+
+	}
+}
