@@ -9,9 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type AccessController struct {
-	BaseController
-}
+type AccessController struct{}
 
 func (con AccessController) Index(c *gin.Context) {
 
@@ -50,12 +48,12 @@ func (con AccessController) DoAdd(c *gin.Context) {
 	//判断form内容是否合规
 	//1.module_name不能为空值
 	if module_name == "" || module_name == " " {
-		con.Error(c, "model name 不能为空值", "/admin/access/index")
+		BaseController{}.Error(c, "model name 不能为空值", "/admin/access/index")
 		return
 	}
 	//2.判断传入的int是否为纯数字
 	if err1 != nil || err2 != nil || err3 != nil || err4 != nil {
-		con.Error(c, "某些值应该是数字", "/admin/access/index")
+		BaseController{}.Error(c, "某些值应该是数字", "/admin/access/index")
 
 		return
 	}
@@ -74,17 +72,17 @@ func (con AccessController) DoAdd(c *gin.Context) {
 	//使用gorm添加实例化的Access到MySQL里面
 	err5 := models.DB.Create(&accessLise).Error
 	if err5 != nil {
-		con.Error(c, "增加数据失败", "/admin/access/add")
+		BaseController{}.Error(c, "增加数据失败", "/admin/access/add")
 		return
 	}
-	con.Success(c, "增加数据成功", "/admin/access/index")
+	BaseController{}.Success(c, "增加数据成功", "/admin/access/index")
 
 }
 func (con AccessController) Edit(c *gin.Context) {
 	// 获取id
 	id, err1 := models.Int(c.Query("id"))
 	if err1 != nil {
-		con.Error(c, "获取id失败", "/admin/access/index")
+		BaseController{}.Error(c, "获取id失败", "/admin/access/index")
 		return
 	}
 	// 用id实例化access结构体，方便查找
