@@ -59,7 +59,7 @@ func (r CookieRedisStore) Set(key string, setValue interface{}) error {
 	/*
 		setValue := u */
 	// 设置 Session
-	err := RedisDb.Set(ctx, key, setValue, time.Minute*2).Err()
+	err := RedisDb.Set(ctx, key, setValue, time.Minute*60).Err()
 
 	return err
 
