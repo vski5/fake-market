@@ -52,6 +52,8 @@ func RoleRouterInit(r *gin.Engine) {
 		adminRouters.GET("/edit", admin.RoleController{}.Edit)
 		adminRouters.POST("/doEdit", admin.RoleController{}.DoEdit)
 		adminRouters.GET("/delete", admin.RoleController{}.Delete)
+		adminRouters.GET("/auth", admin.RoleController{}.Auth)
+		adminRouters.POST("/doAuth", admin.RoleController{}.DoAuth)
 	}
 }
 
@@ -64,7 +66,6 @@ func AccessRouterInit(r *gin.Engine) {
 		adminRouters.POST("/doAdd", admin.AccessController{}.DoAdd)
 		adminRouters.GET("/edit", admin.AccessController{}.Edit)
 		adminRouters.POST("/doEdit", admin.AccessController{}.DoEdit)
-		adminRouters.GET("/auth", admin.AccessController{}.Auth)
-		adminRouters.POST("/doAuth", admin.AccessController{}.DoAuth)
+
 	}
 }
