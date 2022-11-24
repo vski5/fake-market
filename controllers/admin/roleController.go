@@ -108,3 +108,9 @@ func (con RoleController) Delete(c *gin.Context) {
 		con.Success(c, "删除数据成功", "/admin/role")
 	}
 }
+
+// 权限管理界面
+func (con AccessController) Auth(c *gin.Context) {}
+
+// 执行权限的管理
+func (con AccessController) DoAuth(c *gin.Context) {}
