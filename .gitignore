@@ -1,1 +1,2 @@
-main.go
+#忽略conf文件夹的更改
+conf/app.ini
