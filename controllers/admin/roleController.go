@@ -110,7 +110,13 @@ func (con RoleController) Delete(c *gin.Context) {
 }
 
 // 权限管理界面
-func (con AccessController) Auth(c *gin.Context) {}
+func (con AccessController) Auth(c *gin.Context) {
+	//获取有哪些权限
+
+	//models.DB.Find()
+}
 
 // 执行权限的管理
-func (con AccessController) DoAuth(c *gin.Context) {}
+func (con AccessController) DoAuth(c *gin.Context) {
+
+}
