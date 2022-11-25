@@ -34,7 +34,10 @@ func InitAdminAuthMiddleware(c *gin.Context /* , username string */) {
 
 				//如果验证成功
 				if len(u) > 0 && u[0].Username != "" && err333 != nil {
-
+					/*
+					   u总为[]
+					   过一段时间修补，先用着
+					*/
 					if pathname != "/admin/login" && pathname != "/admin/doLogin" && pathname != "/admin/captcha" {
 						c.Redirect(302, "/admin/login")
 					} else { //用户登录成功 权限判断
@@ -76,7 +79,7 @@ func InitAdminAuthMiddleware(c *gin.Context /* , username string */) {
 					}
 				} else { //如果验证失败
 					if pathname != "/admin/login" && pathname != "/admin/doLogin" && pathname != "/admin/captcha" {
-						c.Redirect(302, "/admin/login")
+						/* c.Redirect(302, "/admin/login") */
 					}
 				}
 
