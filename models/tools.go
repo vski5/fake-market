@@ -38,7 +38,7 @@ func UnixToTime(timestamp int) string {
 	return t.Format("2006-01-02 15:04:05")
 }
 
-// map到slice
+// map[int]int到[]string
 func Map2Slice(m map[int]int) []string {
 	s := make([]string, 0, len(m))
 	for _, v := range m {
@@ -57,4 +57,13 @@ func InSliceOK(fruits []string, n string) bool {
 	}
 	_, ok := fm[n]
 	return ok
+}
+
+// map[string]string到[]string
+func MapString2Slice(m map[string]string) []string {
+	s := make([]string, 0, len(m))
+	for _, v := range m {
+		s = append(s, v)
+	}
+	return s
 }
