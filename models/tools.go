@@ -37,3 +37,24 @@ func UnixToTime(timestamp int) string {
 	t := time.Unix(int64(timestamp), 0)
 	return t.Format("2006-01-02 15:04:05")
 }
+
+// map到slice
+func Map2Slice(m map[int]int) []string {
+	s := make([]string, 0, len(m))
+	for _, v := range m {
+		vString := strconv.Itoa(v)
+		s = append(s, vString)
+	}
+	return s
+}
+
+// 判断值是否在slice内
+func InSliceOK(fruits []string, n string) bool {
+
+	fm := make(map[string]int)
+	for i, v := range fruits {
+		fm[v] = i
+	}
+	_, ok := fm[n]
+	return ok
+}
