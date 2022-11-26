@@ -20,8 +20,6 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 		//获取 Url 路径去掉 Get 传值
 		pathname := strings.Split(c.Request.URL.String(), "?")[0]
 		fmt.Println(pathname)
-		pathname2 := strings.Trim(pathname, "/admin")
-		fmt.Println(pathname2)
 		//判断redis中是否有cookie对应的session
 		userinfo := models.CookieRedisStore{}.Get(cookie111.Value)
 		//类型断言，先类型断言判断是否为string，确定之后才能进行下一步
@@ -29,7 +27,7 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 		if userinfo != nil {
 			name_url := []models.NameUrl{}
 			//执行原生函数获取name和可访问的url的对应值
-			models.DB.Exec("SELECT  `manager`.username, `access`.url FROM `manager` INNER JOIN `role_access` ON  `manager`.role_id=`role_access`.role_id AND `manager`.username = '?' INNER JOIN `access` ON `role_access`.access_id=`access`.id", cookie111.Name).Find(&name_url)
+			models.DB.Exec("SELECT  `manager`.username, `access`.url FROM `manager` INNER JOIN `role_access` ON  `manager`.role_id=`role_access`.role_id AND `manager`.username = '?' INNER JOIN `access` ON `role_access`.access_id=`access`.id", cookie111.Value).Find(&name_url)
 			name_url_map := make(map[string]string)
 			for _, value1 := range name_url {
 				name_url_map[value1.Username] = value1.Url
@@ -37,7 +35,7 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 			}
 			roles := models.MapString2Slice(name_url_map)
 			//判断访问的连接是否属于权限内
-			canbe := models.InSliceOK(roles, pathname2)
+			canbe := models.InSliceOK(roles, pathname)
 			fmt.Println(canbe)
 
 		}
