@@ -127,7 +127,7 @@ func (con RoleController) Auth(c *gin.Context) {
 	models.DB.Where("role_id=?", roleId).Find(&roleAccess)
 	roleAccessMap := make(map[int]int)
 	for _, v := range roleAccess {
-		roleAccessMap[v.AccessId] = v.RoleId
+		roleAccessMap[v.AccessId] = v.ManagerId
 	}
 
 	//4、循环遍历所有的权限数据，判断当前权限的id是否在角色权限的Map对象中,如果是的话给当前数据加入checked属性
@@ -166,7 +166,7 @@ func (con RoleController) DoAuth(c *gin.Context) {
 
 	// 增加当前角色对应的权限
 	for _, v := range accessIds {
-		roleAccess.RoleId = roleId
+		roleAccess.ManagerId = roleId
 		accessId, _ := models.Int(v)
 		roleAccess.AccessId = accessId
 		models.DB.Create(&roleAccess)

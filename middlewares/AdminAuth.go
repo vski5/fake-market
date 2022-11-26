@@ -29,13 +29,16 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 			name_url := []models.Manager{}
 			//拼接sql查询语句，gorm自带的拼接 拼接 带引号的值会出错
 			//sql := fmt.Sprintf("SELECT  `manager`.username, `access`.url FROM `manager` INNER JOIN `role_access` ON  `manager`.role_id=`role_access`.role_id AND `manager`.username = '%s' INNER JOIN `access` ON `role_access`.access_id=`access`.id", cookie111.Value)
-			//执行原生函数获取name和可访问的url的对应值
+			//执行原生函数获取name和可访问的url的对应值.Joins("Company").Joins("Manager").Joins("Account").First(&user, 1)
 			models.DB.Where("Username = ?", cookie111.Value).Preload("Access").Find(&name_url)
 			fmt.Println("name_url--------", name_url)
 			name_url_map := make(map[string]string)
 			for _, value1 := range name_url {
-				name_url_map[value1.Username] = value1.Access.Url
-				fmt.Println("name_url_Url---------", value1.Access.Url)
+				for _, value2 := range value1.Access {
+					name_url_map[value1.Username] = value2.Url
+					fmt.Println("name_url_Url---------", value2.Url)
+				}
+
 			}
 			fmt.Println("name_url_map---------", name_url_map)
 			roles := models.MapString2Slice(name_url_map)
