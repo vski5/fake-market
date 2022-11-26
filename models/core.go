@@ -35,6 +35,7 @@ func init() {
 		QueryFields: true, //打印sql
 		//SkipDefaultTransaction: true, //禁用事务
 	})
+
 	// DB.Debug()
 	if err2 != nil {
 		fmt.Println(err)
