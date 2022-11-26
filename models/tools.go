@@ -50,7 +50,6 @@ func Map2Slice(m map[int]int) []string {
 
 // 判断值是否在slice内
 func InSliceOK(fruits []string, n string) bool {
-
 	fm := make(map[string]int)
 	for i, v := range fruits {
 		fm[v] = i

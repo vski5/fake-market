@@ -13,8 +13,8 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 	cookie111, _ := c.Request.Cookie("admin_cookie")
 	if cookie111 == nil {
 		c.HTML(200, "admin/public/error.html", gin.H{
-			"gotourl": "没有cookie,要登录",
-			"message": "/admin/login",
+			"gotourl": "/admin/login",
+			"message": "没有cookie,要登录",
 		})
 	} else {
 		//判断是否用户名和密码是否存在已经在登录界面判断过了
@@ -31,12 +31,12 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 			//sql := fmt.Sprintf("SELECT  `manager`.username, `access`.url FROM `manager` INNER JOIN `role_access` ON  `manager`.role_id=`role_access`.role_id AND `manager`.username = '%s' INNER JOIN `access` ON `role_access`.access_id=`access`.id", cookie111.Value)
 			//执行原生函数获取name和可访问的url的对应值.Joins("Company").Joins("Manager").Joins("Account").First(&user, 1)
 			models.DB.Where("Username = ?", cookie111.Value).Preload("Access").Find(&name_url)
-			fmt.Println("name_url--------", name_url)
+			//fmt.Println("name_url--------", name_url)
 			name_url_map := make(map[string]string)
 			for _, value1 := range name_url {
-				for _, value2 := range value1.Access {
-					name_url_map[value1.Username] = value2.Url
-					fmt.Println("name_url_Url---------", value2.Url)
+				for key, value2 := range value1.Access {
+					name_url_map[models.String(key)] = value2.Url
+					//fmt.Println("name_url_Url---------", value2.Url)
 				}
 
 			}
