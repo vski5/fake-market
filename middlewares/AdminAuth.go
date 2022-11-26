@@ -23,9 +23,9 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 		fmt.Println(pathname)
 		//判断redis中是否有cookie对应的session
 		userinfo := models.CookieRedisStore{}.Get(cookie111.Value)
-		//类型断言，先类型断言判断是否为string，确定之后才能进行下一步
-		//userinfoStr, ok := userinfo.(string)
-		if userinfo != nil {
+		superCheck := []models.Manager{}
+		models.DB.Where("Username = ?", cookie111.Value).Find(&superCheck)
+		if userinfo != nil && superCheck[0].IsSuper != 1 {
 			name_url := []models.Manager{}
 			//拼接sql查询语句，gorm自带的拼接 拼接 带引号的值会出错
 			//sql := fmt.Sprintf("SELECT  `manager`.username, `access`.url FROM `manager` INNER JOIN `role_access` ON  `manager`.role_id=`role_access`.role_id AND `manager`.username = '%s' INNER JOIN `access` ON `role_access`.access_id=`access`.id", cookie111.Value)
@@ -47,6 +47,8 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 			canbe := models.InSliceOK(roles, pathname)
 			fmt.Println("canbe---------", canbe)
 
+		} else if userinfo != nil && superCheck[0].IsSuper == 1 {
+			fmt.Println("加上记录超级管理员登录的日志")
 		}
 
 	}
