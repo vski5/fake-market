@@ -11,7 +11,7 @@ type Manager struct {
 	AddTime  int
 	IsSuper  int
 	Role     Role     `gorm:"foreignKey:RoleId;references:Id"`
-	Access   []Access `gorm:"many2many:role_access  "` //
+	Access   []Access `gorm:"many2many:role_access"` //
 }
 
 func (Manager) TableName() string {
