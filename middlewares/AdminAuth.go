@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"fake-market/models"
+	"fmt"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -11,10 +12,16 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 	// 获取cookie
 	cookie111, _ := c.Request.Cookie("admin_cookie")
 	if cookie111 == nil {
-		c.Redirect(302, "/admin/login")
+		c.HTML(200, "admin/public/error.html", gin.H{
+			"gotourl": "没有cookie,要登录",
+			"message": "/admin/login",
+		})
 	} else {
 		//获取 Url 路径去掉 Get 传值
 		pathname := strings.Split(c.Request.URL.String(), "?")[0]
+		fmt.Println(pathname)
+		pathname2 := strings.Trim(pathname, "/admin")
+		fmt.Println(pathname2)
 		//判断redis中是否有cookie对应的session
 		userinfo := models.CookieRedisStore{}.Get(cookie111.Value)
 		//类型断言，先类型断言判断是否为string，确定之后才能进行下一步
@@ -29,14 +36,12 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 
 			}
 			roles := models.MapString2Slice(name_url_map)
-			models.InSliceOK(roles, pathname)
+			//判断访问的连接是否属于权限内
+			canbe := models.InSliceOK(roles, pathname2)
+			fmt.Println(canbe)
 
-		} else {
-			c.HTML(200, "admin/public/error.html", gin.H{
-				"gotourl": "用户名或者密码异常",
-				"message": "/admin/login",
-			})
 		}
+
 	}
 }
 
