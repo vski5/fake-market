@@ -12,7 +12,7 @@ type Access struct {
 	Status      int
 	AddTime     int
 	AccessItem  []Access `gorm:"foreignKey:ModuleId;references:Id"`
-
+	//Manager     []Manager `gorm:"many2many:RoleAccess;"`
 	Checked bool `gorm:"-"` // 忽略本字段
 }
 

@@ -17,6 +17,7 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 			"message": "/admin/login",
 		})
 	} else {
+		//判断是否用户名和密码是否存在已经在登录界面判断过了
 		//获取 Url 路径去掉 Get 传值
 		pathname := strings.Split(c.Request.URL.String(), "?")[0]
 		fmt.Println(pathname)
@@ -25,18 +26,23 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 		//类型断言，先类型断言判断是否为string，确定之后才能进行下一步
 		//userinfoStr, ok := userinfo.(string)
 		if userinfo != nil {
-			name_url := []models.NameUrl{}
+			name_url := []models.Manager{}
+			//拼接sql查询语句，gorm自带的拼接 拼接 带引号的值会出错
+			//sql := fmt.Sprintf("SELECT  `manager`.username, `access`.url FROM `manager` INNER JOIN `role_access` ON  `manager`.role_id=`role_access`.role_id AND `manager`.username = '%s' INNER JOIN `access` ON `role_access`.access_id=`access`.id", cookie111.Value)
 			//执行原生函数获取name和可访问的url的对应值
-			models.DB.Exec("SELECT  `manager`.username, `access`.url FROM `manager` INNER JOIN `role_access` ON  `manager`.role_id=`role_access`.role_id AND `manager`.username = '?' INNER JOIN `access` ON `role_access`.access_id=`access`.id", cookie111.Value).Find(&name_url)
+			models.DB.Where("Username = ?", cookie111.Value).Preload("Access").Find(&name_url)
+			fmt.Println("name_url--------", name_url)
 			name_url_map := make(map[string]string)
 			for _, value1 := range name_url {
-				name_url_map[value1.Username] = value1.Url
-
+				name_url_map[value1.Username] = value1.Access.Url
+				fmt.Println("name_url_Url---------", value1.Access.Url)
 			}
+			fmt.Println("name_url_map---------", name_url_map)
 			roles := models.MapString2Slice(name_url_map)
+			fmt.Println("roles---------", roles)
 			//判断访问的连接是否属于权限内
 			canbe := models.InSliceOK(roles, pathname)
-			fmt.Println(canbe)
+			fmt.Println("canbe---------", canbe)
 
 		}
 
