@@ -2,13 +2,9 @@ package middlewares
 
 import (
 	"fake-market/models"
-	"net/http"
 	"strings"
-	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/storyicon/grbac"
-	"gorm.io/gorm"
 )
 
 func InitAdminAuthMiddleware(c *gin.Context) {
@@ -45,9 +41,10 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 }
 
 /*      舍去下面的部分           */
+/*舍去下面 （gprca这部分）*/
 /*                舍去gprca这部分，用 models.DB.Exec 执行原生函数解决了问题                 */
 // 查询有哪些角色对应manager
-func QueryRolesByHeaders(c *gin.Context, header http.Header) (roles []string, err error) {
+/* func QueryRolesByHeaders(c *gin.Context, header http.Header) (roles []string, err error) {
 
 	//获取cookie
 	cookie111, _ := c.Request.Cookie("admin_cookie")
@@ -124,3 +121,4 @@ func Authorization() gin.HandlerFunc {
 		}
 	}
 }
+*/
