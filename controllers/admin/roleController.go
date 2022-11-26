@@ -72,7 +72,7 @@ func (con RoleController) DoEdit(c *gin.Context) {
 
 	id, err1 := models.Int(c.PostForm("id"))
 	if err1 != nil {
-		con.Error(c, "传入数据错误", "/admin/role")
+		con.Error(c, "传入数据错误", "/admin/role/index")
 		return
 	}
 	title := strings.Trim(c.PostForm("title"), " ")
@@ -114,7 +114,7 @@ func (con RoleController) Auth(c *gin.Context) {
 	//1、获取角色id
 	roleId, err := models.Int(c.Query("id"))
 	if err != nil {
-		con.Error(c, "传入数据错误", "/admin/role")
+		con.Error(c, "传入数据错误", "/admin/role/index")
 		return
 	}
 	//2、获取所有的权限
