@@ -1,7 +1,6 @@
 package models
 
 import (
-	"os"
 	"path"
 	"strconv"
 	"time"
@@ -39,12 +38,15 @@ func UploadOneImg(c *gin.Context, picName string, userFilmSrc string) (string, e
 		//拼接文件保存路径
 		dateDir := userFilmSrc + today
 		//创造文件保存路径
-		MkdirAllErr := os.MkdirAll(dateDir, 0666)
+		//os.Mkdir(dateDir, 0666) 生成的文件夹有问题（无法操作）。
+		//os.MkdirAll(dateFileDir, 0666)生成的文件夹【一样】有问题（无法操作）
+		//只能暂时存在focusUpload文件夹这种自己手工创建的问价夹下面，暂时不按日分类了
+		//MkdirAllErr := os.Mkdir(dateDir, 0666)  //按当前日期生成文件夹
 		//拼接文件保存路径和文件名
 		dateFileDir := path.Join(dateDir + userFilmName)
 		//最重要的，最后一步，保存文件。
 		c.SaveUploadedFile(userFilm, dateFileDir)
-		return dateFileDir, MkdirAllErr
+		return dateFileDir, nil
 
 	}
 }
