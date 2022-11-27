@@ -36,7 +36,7 @@ func UploadOneImg(c *gin.Context, picName string, userFilmSrc string) (string, e
 		date := time.Now().Format("20060102")
 
 		//拼接文件保存路径
-		dateDir := userFilmSrc + date
+		dateDir := userFilmSrc + "/" + date
 		//创造文件保存路径
 		MkdirAllErr := os.MkdirAll(dateDir, 0666)
 		//拼接文件保存路径和文件名
