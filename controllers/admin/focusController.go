@@ -80,7 +80,7 @@ func (a FocusController) DoEdit(c *gin.Context) {
 	c.HTML(200, "admin/focus/edit.html", gin.H{})
 }
 
-// 删除轮播图
+// 删除 轮播图
 func (a FocusController) Delete(c *gin.Context) {
 	c.String(http.StatusOK, "test2")
 }
