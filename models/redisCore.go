@@ -20,7 +20,7 @@ func init() {
 		fmt.Printf("Fail to read file: %v", err)
 		os.Exit(1)
 	}
-	redisIpPort := config.Section("redis").Key("ip").String()
+	redisIpPort := config.Section("redis").Key("ip_Port").String()
 	redisPassword := config.Section("redis").Key("password").String()
 
 	//连接Redis 7（对应go-redis/v9）
