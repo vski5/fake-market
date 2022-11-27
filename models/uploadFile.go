@@ -17,6 +17,7 @@ import (
 // userFilmSrc应该为  "./static/focus/" 这种，只包含前置的文件夹不包括名字。。
 // 返回 完整的 文件保存路径和文件名
 func UploadOneImg(c *gin.Context, picName string, userFilmSrc string) (string, error) {
+
 	userFilm, FormFileError := c.FormFile(picName)
 	userFilmExt := path.Ext(userFilm.Filename)
 	allowExt := map[string]bool{
@@ -33,10 +34,10 @@ func UploadOneImg(c *gin.Context, picName string, userFilmSrc string) (string, e
 		//用本日时间戳组成文件名
 		userFilmName := strconv.FormatInt(timeUnix, 10) + userFilmExt
 		//获取本日时间
-		date := time.Now().Format("20060102")
+		today := time.Now().Format("20060102")
 
 		//拼接文件保存路径
-		dateDir := userFilmSrc + "/" + date
+		dateDir := userFilmSrc + today
 		//创造文件保存路径
 		MkdirAllErr := os.MkdirAll(dateDir, 0666)
 		//拼接文件保存路径和文件名
@@ -44,5 +45,6 @@ func UploadOneImg(c *gin.Context, picName string, userFilmSrc string) (string, e
 		//最重要的，最后一步，保存文件。
 		c.SaveUploadedFile(userFilm, dateFileDir)
 		return dateFileDir, MkdirAllErr
+
 	}
 }

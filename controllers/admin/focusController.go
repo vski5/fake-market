@@ -42,7 +42,7 @@ func (con FocusController) DoAdd(c *gin.Context) {
 		con.Error(c, "请输入正确的排序值", "/admin/focus/add")
 	}
 	//上传文件
-	focusImgSrc, err4 := models.UploadOneImg(c, "focus_img", "./static/focus/")
+	focusImgSrc, err4 := models.UploadOneImg(c, "focus_img", "./static/focusUpload/")
 	if err4 != nil {
 		fmt.Println(err4)
 	}
