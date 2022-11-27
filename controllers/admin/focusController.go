@@ -19,11 +19,19 @@ func (a FocusController) Add(c *gin.Context) {
 	c.HTML(200, "admin/focus/add.html", gin.H{})
 }
 
+// 执行--增加轮播图
+func (a FocusController) DoAdd(c *gin.Context) {
+	c.HTML(200, "admin/focus/add.html", gin.H{})
+}
+
 // 修改轮播图
 func (a FocusController) Edit(c *gin.Context) {
 	c.HTML(200, "admin/focus/edit.html", gin.H{})
 }
-
+// 执行--修改轮播图
+func (a FocusController) DoEdit(c *gin.Context) {
+	c.HTML(200, "admin/focus/edit.html", gin.H{})
+}
 // 删除轮播图
 func (a FocusController) Delete(c *gin.Context) {
 	c.String(http.StatusOK, "test2")

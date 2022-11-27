@@ -63,11 +63,11 @@ func AccessRouterInit(r *gin.Engine) {
 func FocusRouterInit(r *gin.Engine) {
 	adminRouters := r.Group("admin/focus", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
 	{
-		adminRouters.GET("/index", admin.AccessController{}.Index)
-		adminRouters.GET("/add", admin.AccessController{}.Add)
-		adminRouters.POST("/doAdd", admin.AccessController{}.DoAdd)
-		adminRouters.GET("/edit", admin.AccessController{}.Edit)
-		adminRouters.POST("/doEdit", admin.AccessController{}.DoEdit)
+		adminRouters.GET("/index", admin.FocusController{}.Index)
+		adminRouters.GET("/add", admin.FocusController{}.Add)
+		adminRouters.POST("/doAdd", admin.FocusController{}.DoAdd)
+		adminRouters.GET("/edit", admin.FocusController{}.Edit)
+		adminRouters.POST("/doEdit", admin.FocusController{}.DoEdit)
 
 	}
 }
