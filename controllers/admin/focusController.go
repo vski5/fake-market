@@ -24,12 +24,7 @@ func (a FocusController) Index(c *gin.Context) {
 
 // 增加轮播图
 func (a FocusController) Add(c *gin.Context) {
-	//获取顶级模块
-	accessList := []models.Access{}
-	models.DB.Where("module_id=?", 0).Find(&accessList)
-	c.HTML(http.StatusOK, "admin/access/add.html", gin.H{
-		"accessList": accessList,
-	})
+	c.HTML(http.StatusOK, "admin/focus/add.html", gin.H{})
 }
 
 // 执行--增加轮播图
