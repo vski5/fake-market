@@ -31,17 +31,6 @@ func ManagerRouterInit(r *gin.Engine) {
 	}
 }
 
-// 轮播图管理
-func FocusRouterInit(r *gin.Engine) {
-	adminRouters := r.Group("admin/focus", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
-	{
-		adminRouters.GET("/index", admin.FocusController{}.Index)
-		adminRouters.GET("/add", admin.FocusController{}.Add)
-		adminRouters.GET("/edit", admin.FocusController{}.Edit)
-		adminRouters.GET("/delete", admin.FocusController{}.Delete)
-	}
-}
-
 // 管理员角色(组)管理
 func RoleRouterInit(r *gin.Engine) {
 	adminRouters := r.Group("admin/role", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
@@ -60,6 +49,19 @@ func RoleRouterInit(r *gin.Engine) {
 // 管理员权限管理 的 展示
 func AccessRouterInit(r *gin.Engine) {
 	adminRouters := r.Group("admin/access", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
+	{
+		adminRouters.GET("/index", admin.AccessController{}.Index)
+		adminRouters.GET("/add", admin.AccessController{}.Add)
+		adminRouters.POST("/doAdd", admin.AccessController{}.DoAdd)
+		adminRouters.GET("/edit", admin.AccessController{}.Edit)
+		adminRouters.POST("/doEdit", admin.AccessController{}.DoEdit)
+
+	}
+}
+
+// 轮播图 管理
+func FocusRouterInit(r *gin.Engine) {
+	adminRouters := r.Group("admin/focus", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
 	{
 		adminRouters.GET("/index", admin.AccessController{}.Index)
 		adminRouters.GET("/add", admin.AccessController{}.Add)
