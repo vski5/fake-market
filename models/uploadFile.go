@@ -48,9 +48,8 @@ func UploadOneImg(c *gin.Context, picName string, userFilmSrc string) (string, e
 		//拼接文件保存路径和文件名
 		dateFileDir := path.Join(dateDir + userFilmName)
 		dateFileDirAndPoint := dateDir + userFilmName
-		os.MkdirAll(dateDir, 0666)
-		os.Chmod(dateDir, 0666)
-		os.Chmod(dateFileDirAndPoint, 0666)
+		os.MkdirAll(dateDir, 0777)
+		os.Chmod(dateDir, 0777)
 		fmt.Println("dateFileDirAndPoint------------------", dateFileDirAndPoint)
 		//最重要的，最后一步，保存文件。
 		c.SaveUploadedFile(userFilm, dateFileDir)
