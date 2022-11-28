@@ -26,7 +26,8 @@ var Logger *zap.Logger
 // 设置logger的初始化
 func InitLogger(loggerDir string) {
 	// 设置输出位置，文件属性
-	logFileLocation, _ := os.OpenFile(loggerDir, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0744)
+	logFileLocation, _ := os.OpenFile(loggerDir, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0777)
+	os.Chmod(loggerDir, 0777)
 	//log.SetOutput()正式的把文件（路径） 设置为日志
 	log.SetOutput(logFileLocation) //把日志文件地址传进去
 	Logger, _ = zap.NewProduction()
