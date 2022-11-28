@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"os"
 	"path"
 	"strconv"
@@ -37,7 +38,8 @@ func UploadOneImg(c *gin.Context, picName string, userFilmSrc string) (string, e
 		today := time.Now().Format("20060102")
 
 		//拼接文件保存路径
-		dateDir := userFilmSrc + "//" + today + "//"
+		dateDir := userFilmSrc + today + "/"
+		fmt.Println("dateDir-------------", dateDir)
 		//创造文件保存路径
 		//os.Mkdir(dateDir, 0666) 生成的文件夹有问题（无法操作）。
 		//os.MkdirAll(dateFileDir, 0666)生成的文件夹【一样】有问题（无法操作）
@@ -45,8 +47,11 @@ func UploadOneImg(c *gin.Context, picName string, userFilmSrc string) (string, e
 		//MkdirAllErr := os.Mkdir(dateDir, 0666)  //按当前日期生成文件夹
 		//拼接文件保存路径和文件名
 		dateFileDir := path.Join(dateDir + userFilmName)
-		os.MkdirAll(dateFileDir, 0666)
-		//os.Chmod(dateFileDir, 0666)
+		dateFileDirAndPoint := dateDir + userFilmName
+		os.MkdirAll(dateDir, 0666)
+		os.Chmod(dateDir, 0666)
+		os.Chmod(dateFileDirAndPoint, 0666)
+		fmt.Println("dateFileDirAndPoint------------------", dateFileDirAndPoint)
 		//最重要的，最后一步，保存文件。
 		c.SaveUploadedFile(userFilm, dateFileDir)
 		return dateFileDir, nil
