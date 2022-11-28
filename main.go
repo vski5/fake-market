@@ -12,6 +12,16 @@ import (
 )
 
 func main() {
+	// 读取.ini里面的数据库配置
+	config, err := ini.Load("./conf/app.ini")
+	if err != nil {
+		fmt.Printf("Fail to read file: %v", err)
+		os.Exit(1)
+	}
+	//加载日志库
+	zapInfoDir := config.Section("zap").Key("infoDir").String()
+	models.InitLogger(zapInfoDir)
+
 	r := gin.Default()
 	//自定义模板函数   注意顺序，注册模板函数需要在加载模板上面
 	/* r.SetFuncMap(template.FuncMap{
@@ -31,24 +41,12 @@ func main() {
 	r.Use(middlewares.InitAdminAuthMiddleware(c * gin.Context))
 	*/
 
-	//读取.ini里面的数据库配置
-	config, err := ini.Load("./conf/app.ini")
-	if err != nil {
-		fmt.Printf("Fail to read file: %v", err)
-		os.Exit(1)
-	}
-
 	//导入路由组
 	routers.AdminRouterInit(r)
 	routers.ManagerRouterInit(r)
 	routers.FocusRouterInit(r)
 	routers.RoleRouterInit(r)
 	routers.AccessRouterInit(r)
-
-	//加载日志库
-	models.SetupLogger()
-	models.InitLogger()
-	defer models.Logger.Sync() //记得关，写到磁盘里，拔环
 
 	ginPort := config.Section("app").Key("port").String()
 	r.Run(ginPort)

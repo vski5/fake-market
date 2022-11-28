@@ -49,7 +49,8 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 			fmt.Println("canbe---------", canbe)
 
 		} else if userinfo != nil && superCheck[0].IsSuper == 1 {
-			models.Logger.Info(
+			sugar := models.Logger.Sugar()
+			sugar.Info(
 				"超级管理员登录",
 				zap.String("用户名", cookie111.Value),
 				zap.String("url", strings.Split(c.Request.URL.String(), "?")[0]),
