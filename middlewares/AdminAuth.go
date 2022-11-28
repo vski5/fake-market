@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 func InitAdminAuthMiddleware(c *gin.Context) {
@@ -48,7 +49,12 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 			fmt.Println("canbe---------", canbe)
 
 		} else if userinfo != nil && superCheck[0].IsSuper == 1 {
-			fmt.Println("加上记录超级管理员登录的日志")
+			models.Logger.Info(
+				"超级管理员登录",
+				zap.String("用户名", cookie111.Value),
+				zap.String("url", strings.Split(c.Request.URL.String(), "?")[0]),
+				zap.String("时间", models.UnixToTime(models.GetUnix())),
+			)
 		}
 
 	}

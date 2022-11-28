@@ -45,6 +45,11 @@ func main() {
 	routers.RoleRouterInit(r)
 	routers.AccessRouterInit(r)
 
+	//加载日志库
+	models.SetupLogger()
+	models.InitLogger()
+	defer models.Logger.Sync() //记得关，写到磁盘里，拔环
+
 	ginPort := config.Section("app").Key("port").String()
 	r.Run(ginPort)
 }

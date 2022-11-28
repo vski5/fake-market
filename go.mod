@@ -6,6 +6,7 @@ require (
 	github.com/gin-gonic/gin v1.8.1
 	github.com/go-redis/redis/v9 v9.0.0-rc.1
 	github.com/mojocn/base64Captcha v1.3.5
+	go.uber.org/zap v1.23.0
 	gopkg.in/ini.v1 v1.67.0
 	gorm.io/driver/mysql v1.4.3
 	gorm.io/gorm v1.24.1
@@ -30,6 +31,8 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
+	go.uber.org/atomic v1.7.0 // indirect
+	go.uber.org/multierr v1.6.0 // indirect
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
 	golang.org/x/image v0.0.0-20190501045829-6d32002ffd75 // indirect
 	golang.org/x/net v0.0.0-20220722155237-a158d28d115b // indirect
