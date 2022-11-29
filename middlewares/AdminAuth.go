@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
 )
 
 func InitAdminAuthMiddleware(c *gin.Context) {
@@ -49,13 +48,8 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 			fmt.Println("canbe---------", canbe)
 
 		} else if userinfo != nil && superCheck[0].IsSuper == 1 {
-			sugar := models.Logger.Sugar()
-			sugar.Info(
-				"超级管理员登录",
-				zap.String("用户名", cookie111.Value),
-				zap.String("url", strings.Split(c.Request.URL.String(), "?")[0]),
-				zap.String("时间", models.UnixToTime(models.GetUnix())),
-			)
+			models.SugarLogger.Infof("超级管理员登录! 用户名 = %s for URL %s", cookie111.Value, strings.Split(c.Request.URL.String(), "?")[0])
+
 		}
 
 	}

@@ -1,20 +1,12 @@
 package models
 
 import (
-	"log"
-	"os"
-
+	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 // 用zap实现日志库
-
-// 设置输出位置，文件属性
-/* func SetupLogger() {
-	logFileLocation, _ := os.OpenFile("/home/ubuntu/fake-market/models/zap.go", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0744)
-	//log.SetOutput()正式的把文件（路径） 设置为日志
-	log.SetOutput(logFileLocation) //把日志文件地址传进去
-} */
 
 //使用日志
 //用log.Printf记录日志 使用%s来记录字符串，%d来记录整数，%f来记录浮点数
@@ -22,22 +14,46 @@ import (
 
 // 先定义logger全局实例
 var Logger *zap.Logger
+var SugarLogger *zap.SugaredLogger
 
-// 设置logger的初始化
-func InitLogger(loggerDir string) {
-	// 设置输出位置，文件属性
-	logFileLocation, _ := os.OpenFile(loggerDir, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0777)
-	os.Chmod(loggerDir, 0777)
-	//log.SetOutput()正式的把文件（路径） 设置为日志
-	log.SetOutput(logFileLocation) //把日志文件地址传进去
-	Logger, _ = zap.NewProduction()
-	//对于SugaredLogger还有一步：
-	//SugarLogger = Logger.Sugar() 被称为加点糖
-	//后面直接用SugarLogger.Infof("Error", zap.String("url", "http://www.baidu.com"), zap.Error(err) ) 之类的就可以了
+func InitLogger(path string) {
+	lumberJackLogger := &lumberjack.Logger{
+		Filename:   path,
+		MaxSize:    1,
+		MaxBackups: 5,
+		MaxAge:     30,
+		Compress:   false,
+	}
 
-	defer Logger.Sync() // flushes buffer, if any
+	writeSyncer := zapcore.AddSync(lumberJackLogger)
+	encoder := getEncoder()
+	core := zapcore.NewCore(encoder, writeSyncer, zapcore.DebugLevel)
 
+	logger := zap.New(core, zap.AddCaller())
+	SugarLogger = logger.Sugar()
 }
+
+func getEncoder() zapcore.Encoder {
+	encoderConfig := zap.NewProductionEncoderConfig()
+	encoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	encoderConfig.EncodeLevel = zapcore.CapitalLevelEncoder
+	return zapcore.NewConsoleEncoder(encoderConfig)
+}
+
+/*
+if err != nil {
+	SugarLogger.Errorf("Error fetching URL %s : Error = %s", url, err)
+} else {
+	SugarLogger.Infof("Success! statusCode = %s for URL %s", resp.Status, url)
+	resp.Body.Close()
+}
+*/
+
+/*
+func getLogWriter() zapcore.WriteSyncer {
+	file, _ := os.Create("./test.log")
+	return zapcore.AddSync(file)
+} */
 
 /*现在的使用方法
 //首先 sugar := models.Logger.Sugar()声明一下

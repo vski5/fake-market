@@ -21,6 +21,7 @@ func main() {
 	//加载日志库
 	zapInfoDir := config.Section("zap").Key("infoDir").String()
 	models.InitLogger(zapInfoDir)
+	defer models.SugarLogger.Sync()
 
 	r := gin.Default()
 	//自定义模板函数   注意顺序，注册模板函数需要在加载模板上面
