@@ -4,6 +4,7 @@ import (
 	"fake-market/models"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -111,11 +112,22 @@ func (con FocusController) DoEdit(c *gin.Context) {
 	if err5 != nil {
 		con.Error(c, "修改数据失败请重新尝试", "/admin/focus/edit?id="+models.String(id))
 	} else {
-		con.Success(c, "增加轮播图成功", "/admin/focus")
+		con.Success(c, "增加轮播图成功", "/admin/focus/index")
 	}
 }
 
 // 删除 轮播图
-func (a FocusController) Delete(c *gin.Context) {
-	c.String(http.StatusOK, "test2")
+func (con FocusController) Delete(c *gin.Context) {
+	id, err := models.Int(c.Query("id"))
+	if err != nil {
+		con.Error(c, "传入数据错误", "/admin/focus/index")
+	} else {
+		focus := models.Focus{Id: id}
+		models.DB.First(&focus)
+		focusSrc := "./" + focus.FocusImg
+		models.DB.Delete(&focus)
+		//彻底删除图片
+		os.Remove(focusSrc)
+		con.Success(c, "删除数据成功", "/admin/focus/index")
+	}
 }
