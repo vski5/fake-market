@@ -37,12 +37,21 @@ func (con BaseController) ChangeStatus(c *gin.Context) {
 		return
 	}
 
-	table := c.Query("table")
-	field := c.Query("field")
+	table := c.Query("table") //要修改的表名
+	field := c.Query("field") //要修改的字段名
 
-	// status = ABS(0-1)   1
+	//ABS()取绝对值
 
-	// status = ABS(1-1)  0
+	/*
+		js：返回"data-table"和"data-field"，用table和field的名字调用路由/admin/changeStatus
+		var table=$(this).attr("data-table")
+		var field=$(this).attr("data-field")
+		$.get("/admin/changeStatus",{id:id,table:table,field:field},function(response){
+
+		HTML：
+		data-table="focus" data-field="status"
+
+	*/
 
 	err1 := models.DB.Exec("update "+table+" set "+field+"=ABS("+field+"-1) where id=?", id).Error
 	if err1 != nil {
