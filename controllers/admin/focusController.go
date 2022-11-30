@@ -80,8 +80,39 @@ func (a FocusController) Edit(c *gin.Context) {
 }
 
 // 执行--修改轮播图
-func (a FocusController) DoEdit(c *gin.Context) {
-	c.HTML(200, "admin/focus/edit.html", gin.H{})
+func (con FocusController) DoEdit(c *gin.Context) {
+	id, err1 := models.Int(c.PostForm("id"))
+	title := c.PostForm("title")
+	focusType, err2 := models.Int(c.PostForm("focus_type"))
+	link := c.PostForm("link")
+	sort, err3 := models.Int(c.PostForm("sort"))
+	status, err4 := models.Int(c.PostForm("status"))
+
+	if err1 != nil || err2 != nil || err4 != nil {
+		con.Error(c, "非法请求", "/admin/focus")
+	}
+	if err3 != nil {
+		con.Error(c, "请输入正确的排序值", "/admin/focus/edit?id="+models.String(id))
+	}
+	//上传文件
+	focusImg, _ := models.UploadOneImg(c, "focus_img", "./static/focusUpload/")
+
+	focus := models.Focus{Id: id}
+	models.DB.Find(&focus)
+	focus.Title = title
+	focus.FocusType = focusType
+	focus.Link = link
+	focus.Sort = sort
+	focus.Status = status
+	if focusImg != "" {
+		focus.FocusImg = focusImg
+	}
+	err5 := models.DB.Save(&focus).Error
+	if err5 != nil {
+		con.Error(c, "修改数据失败请重新尝试", "/admin/focus/edit?id="+models.String(id))
+	} else {
+		con.Success(c, "增加轮播图成功", "/admin/focus")
+	}
 }
 
 // 删除 轮播图
