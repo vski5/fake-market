@@ -41,9 +41,9 @@
             </td>
             <td align="center">
                 {{if eq $value.Status 1}}
-                <img src="/static/admin/images/yes.gif" />
+                    <img class="chStatus" data-id="{{$value.Id}}" data-table="focus" data-field="status" src="/static/public/image/yes.svg" />
                 {{else}}
-                <img src="/static/admin/images/no.gif" />
+                    <img class="chStatus"  data-id="{{$value.Id}}" data-table="focus" data-field="status" src="/static/public/image/no.svg" />
                 {{end}}
             </td>
             <td class="text-center">

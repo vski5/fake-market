@@ -15,6 +15,7 @@ func AdminRouterInit(r *gin.Engine) {
 		adminRouters.GET("/captcha", admin.LoginCaptchaController{}.DoCaptchaMake) //生成 验证码
 		/* adminRouters.GET("/verify", admin.LoginCaptchaController{}.DoCaptcha)      //检验验证码 */
 		adminRouters.POST("/dologin", admin.AdminController{}.Dolog)
+		adminRouters.GET("/changeStatus", admin.BaseController{}.ChangeStatus)
 	}
 }
 
