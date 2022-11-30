@@ -29,12 +29,12 @@
                         {{end}}
                     </li>                            
 
-                    <li>  排　　序: <input type="text" name="sort" value="{{.focus.Sort}}"/></li>
+                    <li>  排 序: <input type="text" name="sort" value="{{.focus.Sort}}"/></li>
 
-                    <li>  状　　态: 
+                    <li>  状 态: 
                         <input type="radio" name="status" {{if eq .focus.Status 1}} checked {{end}}  value="1" id="a"/> <label for="a">显示</label>    
                         
-                        <input type="radio" name="status" {{if eq .focus.Status 0}} checked {{end}} value="0" id="b"/><label for="b">隐藏</label> 　</li>
+                        <input type="radio" name="status" {{if eq .focus.Status 0}} checked {{end}} value="0" id="b"/><label for="b">隐藏</label> </li>
                     <li>
                         <br/>
                         <button type="submit" class="btn btn-primary">提交</button>

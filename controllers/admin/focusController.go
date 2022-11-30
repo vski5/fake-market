@@ -67,7 +67,16 @@ func (con FocusController) DoAdd(c *gin.Context) {
 
 // 修改轮播图
 func (a FocusController) Edit(c *gin.Context) {
-	c.HTML(200, "admin/focus/edit.html", gin.H{})
+	id, err1 := models.Int(c.Query("id"))
+	if err1 != nil {
+		a.Error(c, "传入参数错误", "/admin/focus")
+		return
+	}
+	focus := models.Focus{Id: id}
+	models.DB.Find(&focus)
+	c.HTML(http.StatusOK, "admin/focus/edit.html", gin.H{
+		"focus": focus,
+	})
 }
 
 // 执行--修改轮播图
