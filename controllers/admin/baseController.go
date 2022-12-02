@@ -60,10 +60,10 @@ func (con BaseController) ChangeStatus(c *gin.Context) {
 			"message": "修改失败 请重试",
 		})
 		return
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"success": true,
+			"message": "修改成功",
+		})
 	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"success": true,
-		"message": "修改成功",
-	})
 }
