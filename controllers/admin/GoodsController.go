@@ -1,13 +1,24 @@
 package admin
 
-import "github.com/gin-gonic/gin"
+import (
+	"fake-market/models"
+	"fmt"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 type GoodsController struct {
 	BaseController
 }
 
 func (con GoodsController) Index(c *gin.Context) {
-	c.String(200, "index")
+	goodsCateList := []models.GoodsCate{}
+	models.DB.Where("pid = 0").Preload("GoodsCateItems").Find(&goodsCateList)
+	fmt.Printf("%#v", goodsCateList)
+	c.HTML(http.StatusOK, "admin/goodsCate/index.html", gin.H{
+		"goodsCateList": goodsCateList,
+	})
 }
 func (con GoodsController) Add(c *gin.Context) {
 	c.String(200, "add")
