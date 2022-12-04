@@ -72,3 +72,16 @@ func FocusRouterInit(r *gin.Engine) {
 
 	}
 }
+
+// 商品图 管理GoodsController
+func GoodsRouterInit(r *gin.Engine) {
+	adminRouters := r.Group("admin/goods", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
+	{
+		adminRouters.GET("/index", admin.GoodsController{}.Index)
+		adminRouters.GET("/add", admin.GoodsController{}.Add)
+		adminRouters.POST("/doAdd", admin.GoodsController{}.DoAdd)
+		adminRouters.GET("/edit", admin.GoodsController{}.Edit)
+		adminRouters.POST("/doEdit", admin.GoodsController{}.DoEdit)
+
+	}
+}
