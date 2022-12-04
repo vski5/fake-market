@@ -7,3 +7,6 @@
 2022-11-30T03:33:56.875Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/focus/index
 2022-11-30T03:35:55.099Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/focus/index
 2022-11-30T03:37:03.351Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/focus/index
+2022-12-04T14:38:11.035Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/focus/index
+2022-12-04T14:38:17.762Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/focus/delete
+2022-12-04T14:38:21.782Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/focus/index
