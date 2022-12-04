@@ -69,6 +69,8 @@ func FocusRouterInit(r *gin.Engine) {
 		adminRouters.POST("/doAdd", admin.FocusController{}.DoAdd)
 		adminRouters.GET("/edit", admin.FocusController{}.Edit)
 		adminRouters.POST("/doEdit", admin.FocusController{}.DoEdit)
+		//删除商品图
+		adminRouters.DELETE("/delete", admin.FocusController{}.Delete)
 
 	}
 }
