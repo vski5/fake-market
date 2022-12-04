@@ -31,3 +31,19 @@ type GoodsType struct {
 func (GoodsType) TableName() string {
 	return "goods_type"
 }
+
+// 商品类型属性
+type GoodsTypeAttribute struct {
+	Id        int
+	CateId    int
+	Title     string
+	AttrType  int
+	AttrValue string
+	Status    int
+	Sort      int
+	AddTime   int
+}
+
+func (GoodsTypeAttribute) TableName() string {
+	return "goods_type_attribute"
+}
