@@ -19,3 +19,15 @@ type GoodsCate struct {
 func (GoodsCate) TableName() string {
 	return "goods_cate"
 }
+
+type GoodsType struct {
+	Id          int
+	Title       string
+	Description string
+	Status      int
+	AddTime     int
+}
+
+func (GoodsType) TableName() string {
+	return "goods_type"
+}
