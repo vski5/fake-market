@@ -22,3 +22,7 @@ func (con GoodsController) Edit(c *gin.Context) {
 func (con GoodsController) DoEdit(c *gin.Context) {
 	c.String(200, "doedit")
 }
+
+func (con GoodsController) Delete(c *gin.Context) {
+	c.String(200, "Delete")
+}

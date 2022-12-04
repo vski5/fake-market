@@ -82,6 +82,8 @@ func GoodsRouterInit(r *gin.Engine) {
 		adminRouters.POST("/doAdd", admin.GoodsController{}.DoAdd)
 		adminRouters.GET("/edit", admin.GoodsController{}.Edit)
 		adminRouters.POST("/doEdit", admin.GoodsController{}.DoEdit)
+		//删除商品图
+		adminRouters.DELETE("/delete", admin.GoodsController{}.Delete)
 
 	}
 }
