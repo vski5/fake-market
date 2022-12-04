@@ -29,8 +29,46 @@ func (con GoodsController) Add(c *gin.Context) {
 	})
 }
 func (con GoodsController) DoAdd(c *gin.Context) {
-	c.String(200, "doadd")
+	title := c.PostForm("title")
+	pid, err1 := models.Int(c.PostForm("pid"))
+	link := c.PostForm("link")
+	template := c.PostForm("template")
+	subTitle := c.PostForm("sub_title")
+	keywords := c.PostForm("keywords")
+	description := c.PostForm("description")
+	sort, err2 := models.Int(c.PostForm("sort"))
+	status, err3 := models.Int(c.PostForm("status"))
+
+	if err1 != nil || err3 != nil {
+		con.Error(c, "传入参数类型不正确", "/goods/add")
+		return
+	}
+	if err2 != nil {
+		con.Error(c, "排序值必须是整数", "/goods/add")
+		return
+	}
+	cateImgDir, _ := models.UploadOneImg(c, "cate_img", "./static/goodsUpload/")
+	goodsCate := models.GoodsCate{
+		Title:       title,
+		Pid:         pid,
+		SubTitle:    subTitle,
+		Link:        link,
+		Template:    template,
+		Keywords:    keywords,
+		Description: description,
+		CateImg:     cateImgDir,
+		Sort:        sort,
+		Status:      status,
+		AddTime:     int(models.GetUnix()),
+	}
+	err := models.DB.Create(&goodsCate).Error
+	if err != nil {
+		con.Error(c, "增加数据失败", "/admin/goods/add")
+		return
+	}
+	con.Success(c, "增加数据成功", "/admin/goods/index")
 }
+
 func (con GoodsController) Edit(c *gin.Context) {
 	c.String(200, "edit")
 }
