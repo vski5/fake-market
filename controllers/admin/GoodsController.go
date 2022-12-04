@@ -70,7 +70,22 @@ func (con GoodsController) DoAdd(c *gin.Context) {
 }
 
 func (con GoodsController) Edit(c *gin.Context) {
-	c.String(200, "edit")
+	//获取要修改的数据
+	id, err := models.Int(c.Query("id"))
+	if err != nil {
+		con.Error(c, "传入参数错误", "/admin/goods/index")
+		return
+	}
+	goodsCate := models.GoodsCate{Id: id}
+	models.DB.Find(&goodsCate)
+
+	//获取顶级分类
+	goodsCateList := []models.GoodsCate{}
+	models.DB.Where("pid = 0").Find(&goodsCateList)
+	c.HTML(http.StatusOK, "admin/goods/edit.html", gin.H{
+		"goodsCate":     goodsCate,
+		"goodsCateList": goodsCateList,
+	})
 }
 
 func (con GoodsController) DoEdit(c *gin.Context) {
