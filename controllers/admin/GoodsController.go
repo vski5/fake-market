@@ -89,7 +89,47 @@ func (con GoodsController) Edit(c *gin.Context) {
 }
 
 func (con GoodsController) DoEdit(c *gin.Context) {
-	c.String(200, "doedit")
+	id, err1 := models.Int(c.PostForm("id"))
+	title := c.PostForm("title")
+	pid, err2 := models.Int(c.PostForm("pid"))
+	link := c.PostForm("link")
+	template := c.PostForm("template")
+	subTitle := c.PostForm("sub_title")
+	keywords := c.PostForm("keywords")
+	description := c.PostForm("description")
+	sort, err3 := models.Int(c.PostForm("sort"))
+	status, err4 := models.Int(c.PostForm("status"))
+
+	if err1 != nil || err2 != nil || err4 != nil {
+		con.Error(c, "传入参数类型不正确", "/goods/add")
+		return
+	}
+	if err3 != nil {
+		con.Error(c, "排序值必须是整数", "/goods/add")
+		return
+	}
+	cateImgDir, _ := models.UploadOneImg(c, "cate_img", "./static/goodsUpload/")
+
+	goodsCate := models.GoodsCate{Id: id}
+	models.DB.Find(&goodsCate)
+	goodsCate.Title = title
+	goodsCate.Pid = pid
+	goodsCate.Link = link
+	goodsCate.Template = template
+	goodsCate.SubTitle = subTitle
+	goodsCate.Keywords = keywords
+	goodsCate.Description = description
+	goodsCate.Sort = sort
+	goodsCate.Status = status
+	if cateImgDir != "" {
+		goodsCate.CateImg = cateImgDir
+	}
+	err := models.DB.Save(&goodsCate).Error
+	if err != nil {
+		con.Error(c, "修改失败", "/admin/goods/edit?id="+models.String(id))
+		return
+	}
+	con.Success(c, "修改成功", "/admin/goods/index")
 }
 
 func (con GoodsController) Delete(c *gin.Context) {
