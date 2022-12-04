@@ -48,6 +48,7 @@ func main() {
 	routers.FocusRouterInit(r)
 	routers.RoleRouterInit(r)
 	routers.AccessRouterInit(r)
+	routers.GoodsRouterInit(r)
 
 	ginPort := config.Section("app").Key("port").String()
 	r.Run(ginPort)
