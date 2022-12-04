@@ -93,5 +93,26 @@ func (con GoodsController) DoEdit(c *gin.Context) {
 }
 
 func (con GoodsController) Delete(c *gin.Context) {
-	c.String(200, "Delete")
+	id, err := models.Int(c.Query("id"))
+	if err != nil {
+		con.Error(c, "传入数据错误", "/admin/goods/index")
+	} else {
+		//获取我们要删除的数据
+		goodsCate := models.GoodsCate{Id: id}
+		models.DB.Find(&goodsCate)
+		if goodsCate.Pid == 0 { //顶级分类
+			goodsCateList := []models.GoodsCate{}
+			models.DB.Where("pid = ?", goodsCate.Id).Find(&goodsCateList)
+			if len(goodsCateList) > 0 {
+				con.Error(c, "当前分类下面子分类，请删除子分类作以后再来删除这个数据", "/admin/goodsCate")
+			} else {
+				models.DB.Delete(&goodsCate)
+				con.Success(c, "删除数据成功", "/admin/goods/index")
+			}
+		} else { //操作 或者菜单
+			models.DB.Delete(&goodsCate)
+			con.Success(c, "删除数据成功", "/admin/goods/index")
+		}
+
+	}
 }
