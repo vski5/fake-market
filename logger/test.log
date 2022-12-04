@@ -16,3 +16,5 @@
 2022-12-04T14:46:32.241Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goods/add
 2022-12-04T14:46:36.291Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goods/delete
 2022-12-04T14:46:36.935Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goods/edit
+2022-12-04T14:50:02.139Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goods/add
+2022-12-04T14:50:06.724Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goods/doAdd

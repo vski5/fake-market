@@ -21,7 +21,12 @@ func (con GoodsController) Index(c *gin.Context) {
 	})
 }
 func (con GoodsController) Add(c *gin.Context) {
-	c.String(200, "add")
+	//获取顶级分类
+	goodsCateList := []models.GoodsCate{}
+	models.DB.Where("pid = 0").Find(&goodsCateList)
+	c.HTML(http.StatusOK, "admin/goodsCate/add.html", gin.H{
+		"goodsCateList": goodsCateList,
+	})
 }
 func (con GoodsController) DoAdd(c *gin.Context) {
 	c.String(200, "doadd")
