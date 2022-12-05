@@ -65,7 +65,30 @@ func (con GoodsTypeController) Edit(c *gin.Context) {
 	}
 }
 func (con GoodsTypeController) DoEdit(c *gin.Context) {
-	c.String(200, "test")
+	id, err1 := models.Int(c.PostForm("id"))
+	title := strings.Trim(c.PostForm("title"), " ")
+	description := strings.Trim(c.PostForm("description"), " ")
+	status, err2 := models.Int(c.PostForm("status"))
+	if err1 != nil || err2 != nil {
+		con.Error(c, "传入数据错误", "/admin/goodsType")
+		return
+	}
+
+	if title == "" {
+		con.Error(c, "商品类型的标题不能为空", "/admin/goodsType/edit?id="+models.String(id))
+	}
+	goodsType := models.GoodsType{Id: id}
+	models.DB.Find(&goodsType)
+	goodsType.Title = title
+	goodsType.Description = description
+	goodsType.Status = status
+
+	err3 := models.DB.Save(&goodsType).Error
+	if err3 != nil {
+		con.Error(c, "修改数据失败", "/admin/goodsType/edit?id="+models.String(id))
+	} else {
+		con.Success(c, "修改数据成功", "/admin/goodsType/index")
+	}
 }
 func (con GoodsTypeController) Delete(c *gin.Context) {
 	c.String(200, "test")
