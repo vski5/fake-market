@@ -53,7 +53,16 @@ func (con GoodsTypeController) DoAdd(c *gin.Context) {
 	}
 }
 func (con GoodsTypeController) Edit(c *gin.Context) {
-	c.String(200, "test")
+	id, err := models.Int(c.Query("id"))
+	if err != nil {
+		con.Error(c, "传入数据错误", "/admin/goodsType")
+	} else {
+		goodsType := models.GoodsType{Id: id}
+		models.DB.Find(&goodsType)
+		c.HTML(http.StatusOK, "admin/goodsType/edit.html", gin.H{
+			"goodsType": goodsType,
+		})
+	}
 }
 func (con GoodsTypeController) DoEdit(c *gin.Context) {
 	c.String(200, "test")
