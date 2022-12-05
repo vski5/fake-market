@@ -89,3 +89,18 @@ func GoodsRouterInit(r *gin.Engine) {
 
 	}
 }
+
+// 商品图类型的 管理
+func GoodsTypeRouterInit(r *gin.Engine) {
+	adminRouters := r.Group("admin/goods", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
+	{
+		adminRouters.GET("/index", admin.GoodsTypeController{}.Index)
+		adminRouters.GET("/add", admin.GoodsTypeController{}.Add)
+		adminRouters.POST("/doAdd", admin.GoodsTypeController{}.DoAdd)
+		adminRouters.GET("/edit", admin.GoodsTypeController{}.Edit)
+		adminRouters.POST("/doEdit", admin.GoodsTypeController{}.DoEdit)
+		//删除商品类型
+		adminRouters.GET("/delete", admin.GoodsTypeController{}.Delete)
+
+	}
+}
