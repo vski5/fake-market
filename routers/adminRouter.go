@@ -106,7 +106,7 @@ func GoodsTypeRouterInit(r *gin.Engine) {
 }
 
 // 商品有哪些种类的类型 管理 /admin/goodsTypeAttribute GoodsTypeAttributeController
-func GoodsTypeAttributeController(r *gin.Engine) {
+func GoodsTypeAttributeRouterInit(r *gin.Engine) {
 	adminRouters := r.Group("admin/goodsTypeAttribute", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
 	{
 		adminRouters.GET("/index", admin.GoodsTypeAttributeController{}.Index)

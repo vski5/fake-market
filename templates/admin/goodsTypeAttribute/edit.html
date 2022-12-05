@@ -1,0 +1,62 @@
+{{ define "admin/goodsTypeAttribute/edit.html" }}
+
+{{ template "admin/public/page_header.html" .}}
+{{ template "admin/public/page_aside.html" .}}
+
+<div class="container-fluid">
+    <div class="row">
+       
+        <div class="panel panel-default">              
+            <div class="panel-heading">
+                修改商品类型属性
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive input-form">
+                    <form action="/admin/goodsTypeAttribute/doEdit" method="post">
+                        <ul>
+                            <input type="hidden" name="id" value="{{.goodsType.Id}}" />
+
+                            <li> 属性名称： <input type="text" name="title" value="{{.goodsType.Title}}"/></li>
+                            <li> 所属类型：
+                                {{$cateId := .cateId}}
+                                <select name="cate_id" id="cate_id">
+                                    {{range $key,$value := .goodsTypeList}}
+                                        <option {{if eq $cateId $value.Id}} selected {{end}}  value="{{$value.Id}}">{{$value.Title}}</option>  
+                                    {{end}}
+                                </select>
+                            </li>
+                            <li> 录入方式：
+                                <input type="radio" name="attr_type" value="1" checked="true" id="text" /><label
+                                    for="text">单行文本框</label>  
+                                <input type="radio" name="attr_type" value="2" id="textarea" /><label
+                                    for="textarea">多行文本框</label>  
+                                <input type="radio" name="attr_type" value="3" id="select" /><label
+                                    for="select">从下面的列表中选择（一行代表一个可选值）</label> 
+                            </li>
+                            <li>
+                                可选值列表：
+                                <textarea name="attr_value" id="attr_value" cols="60" rows="8" disabled="disabled"></textarea>
+                            </li>
+
+                            <li> <span>排 序:</span> <input type="text" name="sort" value="10" /></li>
+
+                            <li>
+                                <br />
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </li>
+
+                        </ul>
+
+
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
+{{end}}

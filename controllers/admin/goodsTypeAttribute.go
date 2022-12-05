@@ -88,20 +88,22 @@ func (con GoodsTypeAttributeController) DoAdd(c *gin.Context) {
 	if err != nil {
 		con.Error(c, "增加商品类型属性失败 请重试", "/admin/goodsTypeAttribute/add?cate_id="+models.String(cateId))
 	} else {
-		con.Success(c, "增加商品类型属性成功", "/admin/goodsTypeAttribute?id="+models.String(cateId))
+		con.Success(c, "增加商品类型属性成功", "/admin/goodsTypeAttribute/index?id="+models.String(cateId))
 	}
 }
 func (con GoodsTypeAttributeController) Edit(c *gin.Context) {
-	/* id, err := models.Int(c.Query("id"))
-	if err != nil {
-		con.Error(c, "传入数据错误", "/admin/goodsType")
+	id, err := models.Int(c.Query("id"))
+	cateId, err2 := models.Int(c.Query("cate_id"))
+	if err != nil && err2 != nil {
+		con.Error(c, "传入数据错误", "/admin/goodsTypeAttribute/index")
 	} else {
-		goodsType := models.GoodsType{Id: id}
-		models.DB.Find(&goodsType)
-		c.HTML(http.StatusOK, "admin/goodsType/edit.html", gin.H{
-			"goodsType": goodsType,
+		goodsTypeAttribute := models.GoodsTypeAttribute{Id: id}
+		models.DB.Find(&goodsTypeAttribute)
+		c.HTML(http.StatusOK, "admin/goodsTypeAttribute/edit.html", gin.H{
+			"goodsType": goodsTypeAttribute,
+			"cateId":    cateId,
 		})
-	} */
+	}
 }
 func (con GoodsTypeAttributeController) DoEdit(c *gin.Context) {
 	/* id, err1 := models.Int(c.PostForm("id"))
@@ -128,6 +130,7 @@ func (con GoodsTypeAttributeController) DoEdit(c *gin.Context) {
 	} else {
 		con.Success(c, "修改数据成功", "/admin/goodsType/index")
 	} */
+	c.String(200, "doedit")
 }
 func (con GoodsTypeAttributeController) Delete(c *gin.Context) {
 	/* id, err := models.Int(c.Query("id"))
