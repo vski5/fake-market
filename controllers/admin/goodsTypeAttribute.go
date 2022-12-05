@@ -3,6 +3,7 @@ package admin
 import (
 	"fake-market/models"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -54,6 +55,41 @@ func (con GoodsTypeAttributeController) Add(c *gin.Context) {
 
 func (con GoodsTypeAttributeController) DoAdd(c *gin.Context) {
 
+	title := strings.Trim(c.PostForm("title"), " ")
+	cateId, err1 := models.Int(c.PostForm("cate_id"))
+	attrType, err2 := models.Int(c.PostForm("attr_type"))
+	attrValue := c.PostForm("attr_value")
+	sort, err3 := models.Int(c.PostForm("sort"))
+
+	if err1 != nil || err2 != nil {
+		con.Error(c, "非法请求", "/admin/goodsType/index")
+		return
+	}
+	if title == "" {
+		con.Error(c, "商品类型属性名称不能为空", "/admin/goodsTypeAttribute/add?cate_id="+models.String(cateId))
+		return
+	}
+
+	if err3 != nil {
+		con.Error(c, "排序值不对", "/admin/goodsTypeAttribute/add?cate_id="+models.String(cateId))
+		return
+	}
+
+	goodsTypeAttr := models.GoodsTypeAttribute{
+		Title:     title,
+		CateId:    cateId,
+		AttrType:  attrType,
+		AttrValue: attrValue,
+		Status:    1,
+		Sort:      sort,
+		AddTime:   int(models.GetUnix()),
+	}
+	err := models.DB.Create(&goodsTypeAttr).Error
+	if err != nil {
+		con.Error(c, "增加商品类型属性失败 请重试", "/admin/goodsTypeAttribute/add?cate_id="+models.String(cateId))
+	} else {
+		con.Success(c, "增加商品类型属性成功", "/admin/goodsTypeAttribute?id="+models.String(cateId))
+	}
 }
 func (con GoodsTypeAttributeController) Edit(c *gin.Context) {
 	/* id, err := models.Int(c.Query("id"))
