@@ -91,5 +91,12 @@ func (con GoodsTypeController) DoEdit(c *gin.Context) {
 	}
 }
 func (con GoodsTypeController) Delete(c *gin.Context) {
-	c.String(200, "test")
+	id, err := models.Int(c.Query("id"))
+	if err != nil {
+		con.Error(c, "传入数据错误", "/admin/goodsType/index")
+	} else {
+		goodsType := models.GoodsType{Id: id}
+		models.DB.Delete(&goodsType)
+		con.Success(c, "删除数据成功", "/admin/goodsType/index")
+	}
 }
