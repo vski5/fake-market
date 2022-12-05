@@ -44,3 +44,12 @@
 2022-12-05T10:00:14.482Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goodsTypeAttribute/index
 2022-12-05T10:00:20.273Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goodsTypeAttribute/edit
 2022-12-05T10:00:29.079Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goodsTypeAttribute/doEdit
+2022-12-05T10:11:46.194Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goodsTypeAttribute/doEdit
+2022-12-05T10:11:52.801Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goodsTypeAttribute/edit
+2022-12-05T10:12:06.167Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/manager/index
+2022-12-05T10:12:09.954Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goodsType/index
+2022-12-05T10:12:12.804Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goodsTypeAttribute/index
+2022-12-05T10:13:00.826Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goodsTypeAttribute/edit
+2022-12-05T10:14:51.322Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goodsTypeAttribute/index
+2022-12-05T10:14:54.897Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goodsTypeAttribute/edit
+2022-12-05T10:22:56.346Z	INFO	middlewares/AdminAuth.go:51	超级管理员登录! 用户名 = admin for URL /admin/goodsTypeAttribute/edit

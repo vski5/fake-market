@@ -93,43 +93,53 @@ func (con GoodsTypeAttributeController) DoAdd(c *gin.Context) {
 }
 func (con GoodsTypeAttributeController) Edit(c *gin.Context) {
 	id, err := models.Int(c.Query("id"))
-	cateId, err2 := models.Int(c.Query("cate_id"))
-	if err != nil && err2 != nil {
+
+	if err != nil {
 		con.Error(c, "传入数据错误", "/admin/goodsTypeAttribute/index")
 	} else {
 		goodsTypeAttribute := models.GoodsTypeAttribute{Id: id}
 		models.DB.Find(&goodsTypeAttribute)
+		cateId := goodsTypeAttribute.CateId
+		goodsTypeList := []models.GoodsType{}
+		models.DB.Find(&goodsTypeList)
 		c.HTML(http.StatusOK, "admin/goodsTypeAttribute/edit.html", gin.H{
-			"goodsType": goodsTypeAttribute,
-			"cateId":    cateId,
+			"goodsType":     goodsTypeAttribute,
+			"cateId":        cateId,
+			"goodsTypeList": goodsTypeList,
 		})
 	}
 }
 func (con GoodsTypeAttributeController) DoEdit(c *gin.Context) {
-	/* id, err1 := models.Int(c.PostForm("id"))
+	id, err1 := models.Int(c.PostForm("id"))
+	//title，cate_id，attr_type，attr_value，sort
 	title := strings.Trim(c.PostForm("title"), " ")
-	description := strings.Trim(c.PostForm("description"), " ")
-	status, err2 := models.Int(c.PostForm("status"))
-	if err1 != nil || err2 != nil {
-		con.Error(c, "传入数据错误", "/admin/goodsType")
+	cate_id, err2 := models.Int(c.PostForm("cate_id"))
+	attr_type, err3 := models.Int(c.PostForm("attr_type"))
+	attr_value := strings.Trim(c.PostForm("attr_value"), " ")
+	sort, err4 := models.Int(c.PostForm("sort"))
+	//status, err2 := models.Int(c.PostForm("status"))
+	if err1 != nil || err2 != nil || err3 != nil || err4 != nil {
+		con.Error(c, "传入数据错误", "/admin/goodsType/index")
 		return
 	}
 
 	if title == "" {
 		con.Error(c, "商品类型的标题不能为空", "/admin/goodsType/edit?id="+models.String(id))
 	}
-	goodsType := models.GoodsType{Id: id}
-	models.DB.Find(&goodsType)
-	goodsType.Title = title
-	goodsType.Description = description
-	goodsType.Status = status
+	goodsTypeAttribute := models.GoodsTypeAttribute{Id: id}
+	models.DB.Find(&goodsTypeAttribute)
+	goodsTypeAttribute.Title = title
+	goodsTypeAttribute.CateId = cate_id
+	goodsTypeAttribute.AttrType = attr_type
+	goodsTypeAttribute.AttrValue = attr_value
+	goodsTypeAttribute.Sort = sort
 
-	err3 := models.DB.Save(&goodsType).Error
-	if err3 != nil {
+	errSave := models.DB.Save(&goodsTypeAttribute).Error
+	if errSave != nil {
 		con.Error(c, "修改数据失败", "/admin/goodsType/edit?id="+models.String(id))
 	} else {
 		con.Success(c, "修改数据成功", "/admin/goodsType/index")
-	} */
+	}
 	c.String(200, "doedit")
 }
 func (con GoodsTypeAttributeController) Delete(c *gin.Context) {
