@@ -104,3 +104,18 @@ func GoodsTypeRouterInit(r *gin.Engine) {
 
 	}
 }
+
+// 商品有哪些种类的类型 管理 /admin/goodsTypeAttribute GoodsTypeAttributeController
+func GoodsTypeAttributeController(r *gin.Engine) {
+	adminRouters := r.Group("admin/goodsTypeAttribute", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
+	{
+		adminRouters.GET("/index", admin.GoodsTypeAttributeController{}.Index)
+		adminRouters.GET("/add", admin.GoodsTypeAttributeController{}.Add)
+		adminRouters.POST("/doAdd", admin.GoodsTypeAttributeController{}.DoAdd)
+		//adminRouters.GET("/edit", admin.GoodsTypeAttributeController{}.Edit)
+		//adminRouters.POST("/doEdit", admin.GoodsTypeAttributeController{}.DoEdit)
+		//删除商品类型
+		//adminRouters.GET("/delete", admin.GoodsTypeAttributeController{}.Delete)
+
+	}
+}
