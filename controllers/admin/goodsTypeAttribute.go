@@ -36,7 +36,19 @@ func (con GoodsTypeAttributeController) Index(c *gin.Context) {
 func (con GoodsTypeAttributeController) Add(c *gin.Context) {
 	//获取当前商品类型属性对应的类型id
 
+	cateId, err := models.Int(c.Query("cate_id"))
+	if err != nil {
+		con.Error(c, "传入的参数不正确", "/admin/goodsType/index")
+		return
+	}
+
 	//获取所有的商品类型
+	goodsTypeList := []models.GoodsType{}
+	models.DB.Find(&goodsTypeList)
+	c.HTML(http.StatusOK, "admin/goodsTypeAttribute/add.html", gin.H{
+		"goodsTypeList": goodsTypeList,
+		"cateId":        cateId,
+	})
 
 }
 
