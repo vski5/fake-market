@@ -20,7 +20,7 @@ func (con GoodsTypeController) Index(c *gin.Context) {
 
 }
 func (con GoodsTypeController) Add(c *gin.Context) {
-	c.String(200, "test")
+	c.HTML(http.StatusOK, "admin/goodsType/add.html", gin.H{})
 }
 
 func (con GoodsTypeController) DoAdd(c *gin.Context) {
