@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/gin-gonic/gin v1.8.1
 	github.com/go-redis/redis/v9 v9.0.0-rc.1
+	github.com/hunterhug/go_image v1.0.1
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	go.uber.org/zap v1.23.0
@@ -24,7 +25,6 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/goccy/go-json v0.9.7 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
-	github.com/hunterhug/go_image v1.0.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
