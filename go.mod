@@ -8,6 +8,7 @@ require (
 	github.com/hunterhug/go_image v1.0.1
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/natefinch/lumberjack v2.0.0+incompatible
+	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	go.uber.org/zap v1.23.0
 	gopkg.in/ini.v1 v1.67.0
 	gorm.io/driver/mysql v1.4.3
@@ -33,7 +34,6 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
-	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
