@@ -1,7 +1,7 @@
 package api
 
 import (
-	"fmt"
+	"fake-market/models"
 
 	"github.com/hunterhug/go_image"
 )
@@ -33,9 +33,7 @@ func (image EditImage) TestImage() {
 	//按照宽度和高度进行等比例缩放
 	err := go_image.ThumbnailF2F(image.filename, image.savepath, image.width, image.height)
 	if err != nil {
-		fmt.Printf("生成按宽度高度缩放图:%s\n", err.Error())
-	} else {
-		fmt.Printf("生成按宽度高度缩放图:%s\n", image.savepath)
+		models.SugarLogger.Errorf("生成按宽度高度缩放图 : Error = %s", err.Error())
 	}
 
 }
