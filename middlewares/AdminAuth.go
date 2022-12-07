@@ -26,26 +26,30 @@ func InitAdminAuthMiddleware(c *gin.Context) {
 		superCheck := []models.Manager{}
 		models.DB.Where("Username = ?", cookie111.Value).Find(&superCheck)
 		if userinfo != nil && superCheck[0].IsSuper != 1 {
-			name_url := []models.Manager{}
+
 			//拼接sql查询语句，gorm自带的拼接 拼接 带引号的值会出错
 			//sql := fmt.Sprintf("SELECT  `manager`.username, `access`.url FROM `manager` INNER JOIN `role_access` ON  `manager`.role_id=`role_access`.role_id AND `manager`.username = '%s' INNER JOIN `access` ON `role_access`.access_id=`access`.id", cookie111.Value)
 			//执行原生函数获取name和可访问的url的对应值.Joins("Company").Joins("Manager").Joins("Account").First(&user, 1)
-			models.DB.Where("Username = ?", cookie111.Value).Preload("Access").Find(&name_url)
-			//fmt.Println("name_url--------", name_url)
-			name_url_map := make(map[string]string)
-			for _, value1 := range name_url {
-				for key, value2 := range value1.Access {
-					name_url_map[models.String(key)] = value2.Url
-					//fmt.Println("name_url_Url---------", value2.Url)
-				}
 
+			nameurls := []models.NameUrl{}
+			//finallyValue := "'" + cookie111.Value + "'"
+			finallyValue := fmt.Sprintf("SELECT manager.username , access.url FROM manager left join role_access on manager.role_id = role_access.manager_id left join access on access.id = role_access.access_id "+"WHERE manager.username ="+"'%v'", cookie111.Value)
+			models.DB.Raw(finallyValue).Scan(&nameurls)
+
+			name_url_map := make(map[string]string)
+			for _, t := range nameurls {
+				// 把结构体添加到map中
+				name_url_map[t.Url] = t.Username
 			}
-			fmt.Println("name_url_map---------", name_url_map)
-			roles := models.MapString2Slice(name_url_map)
-			fmt.Println("roles---------", roles)
-			//判断访问的连接是否属于权限内
-			canbe := models.InSliceOK(roles, pathname)
-			fmt.Println("canbe---------", canbe)
+			// 查询 map 中是否含有 key 为 "foo" 的项
+			_, ok := name_url_map[pathname]
+			if !ok {
+				//c.Redirect(http.StatusFound, c.Request.Referer())
+				c.HTML(200, "admin/public/error.html", gin.H{
+					"gotourl": c.Request.Referer(),
+					"message": "没有权限",
+				})
+			}
 
 		} else if userinfo != nil && superCheck[0].IsSuper == 1 {
 			models.SugarLogger.Infof("超级管理员登录! 用户名 = %s for URL %s", cookie111.Value, strings.Split(c.Request.URL.String(), "?")[0])
