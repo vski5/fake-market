@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/gin-gonic/gin v1.8.1
 	github.com/go-redis/redis/v9 v9.0.0-rc.1
+	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/hunterhug/go_image v1.0.1
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/natefinch/lumberjack v2.0.0+incompatible
