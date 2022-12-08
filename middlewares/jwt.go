@@ -7,17 +7,22 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-func Jwt() {
-	// 定义一个字符串变量，用于存储签名密钥。
-	var secret = "your-secret-key"
+type JwtBody struct {
+	secret string
+	userId int
+}
+
+func (JwtBody JwtBody) Jwt() {
+	// 存储签名密钥。
+	secret := JwtBody.secret
 
 	// 创建一个新的JWT。
 	token := jwt.New(jwt.SigningMethodHS256)
 
 	// 为该JWT设置一些声明。
-	claims := token.Claims.(jwt.MapClaims)
-	claims["userId"] = 123
-	claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
+	claims := token.Claims.(jwt.MapClaims) //将JWT的声明转换为一个jwt.MapClaims类型的变量。这样 就可以使用字典语法来设置声明的值，
+	claims["userId"] = JwtBody.userId
+	claims["exp"] = time.Now().Add(time.Hour * 24).Unix() //设置JWT的过期时间,默认是24H
 
 	// 使用签名密钥对JWT进行签名。
 	tokenString, err := token.SignedString([]byte(secret))
