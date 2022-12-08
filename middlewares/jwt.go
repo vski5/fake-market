@@ -29,8 +29,10 @@ func (JwtBody JwtBody) Jwt() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println("JWT:", tokenString)
+	JWT := fmt.Printf("JWT:", tokenString)
 
+}
+func JWTCheck() {
 	// 使用签名密钥和JWT验证签名。
 	result, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return []byte(secret), nil
