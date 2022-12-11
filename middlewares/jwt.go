@@ -37,7 +37,7 @@ func (userJWT MyUserJWTClaims) CreateToken() (string, error) {
 			//"Id":       userJWT.Id,
 			"Username": userJWT.Username,
 			"Urls":     userJWT.Urls,
-			"exp":      time.Now().Add(time.Hour * 24).Unix(),
+			"exp":      time.Now().Add(time.Hour * 6).Unix(),
 		})
 	tokenString, err := token.SignedString(userJWT.Secret)
 
@@ -88,7 +88,7 @@ func ValidateToken(tokenString string, my_secret_key []byte) (back map[string]in
 
 }
 
-// 将使用GIN设置JWT 和 生成和签名JWT 封装到一起。 Scope是 作用域
+// 将使用GIN设置JWT 和 生成和签名JWT 封装到一起。 Scope是 作用域，需要实例化Username，Urls，Secret。
 func (userJWT MyUserJWTClaims) SetJWT(c *gin.Context, Scope string) {
 	tokenString, err := userJWT.CreateToken()
 	if tokenString != "" && err == nil {
