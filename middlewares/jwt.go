@@ -92,7 +92,7 @@ func ValidateToken(tokenString string, my_secret_key []byte) (back map[string]in
 func (userJWT MyUserJWTClaims) SetJWT(c *gin.Context, Scope string) {
 	tokenString, err := userJWT.CreateToken()
 	if tokenString != "" && err == nil {
-		c.SetCookie("Token", tokenString, 3600, "/", Scope, false, true)
+		c.SetCookie("Token", tokenString, int(time.Hour*6), "/", Scope, false, true)
 	}
 }
 
