@@ -21,6 +21,6 @@ func (con GoodsInfoController) Edit(c *gin.Context) {
 func (con GoodsInfoController) DoEdit(c *gin.Context) {
 
 }
-func (con GoodsInfoController) Deletet(c *gin.Context) {
+func (con GoodsInfoController) Delete(c *gin.Context) {
 
 }
