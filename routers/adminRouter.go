@@ -119,3 +119,18 @@ func GoodsTypeAttributeRouterInit(r *gin.Engine) {
 
 	}
 }
+
+// 商品信息的管理
+func GoodsInfoRouterInit(r *gin.Engine) {
+	adminRouters := r.Group("admin/goodsinfo", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
+	{
+		adminRouters.GET("/index", admin.GoodsInfoController{}.Index)
+		adminRouters.GET("/add", admin.GoodsInfoController{}.Add)
+		adminRouters.POST("/doAdd", admin.GoodsInfoController{}.DoAdd)
+		adminRouters.GET("/edit", admin.GoodsInfoController{}.Edit)
+		adminRouters.POST("/doEdit", admin.GoodsInfoController{}.DoEdit)
+		//删除商品信息
+		adminRouters.GET("/delete", admin.GoodsInfoController{}.Delete)
+
+	}
+}
