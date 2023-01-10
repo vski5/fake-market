@@ -16,6 +16,7 @@ import (
 
 // 获取上传的单张图片
 // userFilmSrc应该为  "./static/focus/" 这种，只包含前置的文件夹不包括名字。。
+// picName是前端表格某个单元（包含图片的部分）的名字
 // 返回 完整的 文件保存路径和文件名
 func UploadOneImg(c *gin.Context, picName string, userFilmSrc string) (string, error) {
 

@@ -52,7 +52,7 @@ func main() {
 	routers.GoodsTypeRouterInit(r)
 	routers.GoodsTypeAttributeRouterInit(r)
 	routers.GoodsInfoRouterInit(r)
-
+	//routers.GoodsInfoUploadRouterInit(r)
 	ginPort := config.Section("app").Key("port").String()
 	r.Run(ginPort)
 }

@@ -131,6 +131,18 @@ func GoodsInfoRouterInit(r *gin.Engine) {
 		adminRouters.POST("/doEdit", admin.GoodsInfoController{}.DoEdit)
 		//删除商品信息
 		adminRouters.GET("/delete", admin.GoodsInfoController{}.Delete)
+		//上传图片的路由/admin/goodsinfo/static/goodsUpload/
+		adminRouters.POST("/static/goodsUpload/", admin.GoodsInfoController{}.ImageUpload)
 
 	}
 }
+
+// 商品信息的管理（静态资源部分）
+/* func GoodsInfoUploadRouterInit(r *gin.Engine) {
+	adminRouters := r.Group("static/goodsUpload", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
+	{
+		//上传图片的路由
+		adminRouters.POST("/imageUpload", admin.GoodsInfoController{}.ImageUpload)
+
+	}
+} */
