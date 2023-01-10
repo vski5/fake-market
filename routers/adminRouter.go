@@ -135,6 +135,8 @@ func GoodsInfoRouterInit(r *gin.Engine) {
 		adminRouters.GET("/delete", admin.GoodsInfoController{}.Delete)
 		//上传图片的路由/admin/goodsinfo/static/goodsUpload/
 		adminRouters.POST("/static/goodsUpload/", admin.GoodsInfoController{}.ImageUpload)
+		//上传商品相册图片/admin/goods/imageUpload
+		adminRouters.POST("/imageUpload", admin.GoodsInfoController{}.ImageUpload)
 
 	}
 }
