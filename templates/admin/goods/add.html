@@ -1,16 +1,10 @@
 {{ define "admin/goods/add.html" }}
 {{ template "admin/public/page_aside.html" }}
 {{ template "admin/public/page_header.html" .}}
-<!-- Include Editor style. -->
-<link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
-
-<!-- Create a tag that we will use as the editable area. -->
-<!-- You can use a div tag as well. -->
-
-<!-- Include Editor JS files. -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
-
-<!-- Initialize the editor. -->
+<!-- 富文本编辑器 -->
+<link href="/static/wysiwyg-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/static/wysiwyg-editor/js/froala_editor.pkgd.min.js"></script>
+<script type="text/javascript" src="/static/wysiwyg-editor/js/zh_cn.js"></script>
 
 <!-- 语言包 -->
 <script type="text/javascript" src="/static/admin/js/zh_cn.js"></script>
@@ -138,6 +132,8 @@
                               <div role="tabpanel" class="tab-pane" id="photo">
       
                                       商品相册
+
+                            
                               </div>
                         </div>
 
