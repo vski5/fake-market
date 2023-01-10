@@ -45,7 +45,14 @@ func (con GoodsInfoController) Add(c *gin.Context) {
 	})
 }
 func (con GoodsInfoController) DoAdd(c *gin.Context) {
-
+	attrIdList := c.PostFormArray("attr_id_list")
+	attrValueList := c.PostFormArray("attr_value_list")
+	goodsImageList := c.PostFormArray("goods_image_list")
+	c.JSON(200, gin.H{
+		"attrIdList":     attrIdList,
+		"attrValueList":  attrValueList,
+		"goodsImageList": goodsImageList,
+	})
 }
 func (con GoodsInfoController) Edit(c *gin.Context) {
 
