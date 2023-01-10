@@ -24,8 +24,25 @@ func (con GoodsInfoController) ImageUpload(c *gin.Context) {
 func (con GoodsInfoController) Index(c *gin.Context) {
 	c.HTML(http.StatusOK, "admin/goods/index.html", gin.H{})
 }
+
 func (con GoodsInfoController) Add(c *gin.Context) {
-	c.HTML(http.StatusOK, "admin/goods/add.html", gin.H{})
+	//获取商品分类
+	goodsCateList := []models.GoodsCate{}
+	models.DB.Where("pid=0").Preload("GoodsCateItems").Find(&goodsCateList)
+
+	//获取所有颜色信息
+	goodsColorList := []models.GoodsColor{}
+	models.DB.Find(&goodsColorList)
+
+	//获取商品规格包装
+	goodsTypeList := []models.GoodsType{}
+	models.DB.Find(&goodsTypeList)
+
+	c.HTML(http.StatusOK, "admin/goods/add.html", gin.H{
+		"goodsCateList":  goodsCateList,
+		"goodsColorList": goodsColorList,
+		"goodsTypeList":  goodsTypeList,
+	})
 }
 func (con GoodsInfoController) DoAdd(c *gin.Context) {
 

@@ -86,6 +86,8 @@ func GoodsRouterInit(r *gin.Engine) {
 		adminRouters.POST("/doEdit", admin.GoodsController{}.DoEdit)
 		//删除商品图
 		adminRouters.GET("/delete", admin.GoodsController{}.Delete)
+		//获取商品类型属性/admin/goods/goodsTypeAttribute
+		adminRouters.GET("/goodsTypeAttribute", admin.GoodsController{}.GoodsTypeAttribute)
 
 	}
 }
