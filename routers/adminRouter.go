@@ -128,7 +128,7 @@ func GoodsInfoRouterInit(r *gin.Engine) {
 	{
 		adminRouters.GET("/index", admin.GoodsInfoController{}.Index)
 		adminRouters.GET("/add", admin.GoodsInfoController{}.Add)
-		adminRouters.POST("/doAdd", admin.GoodsInfoController{}.DoAdd)
+		adminRouters.POST("/doAdd", admin.GoodsInfoController{}.DoAdd) //商品信息添加页面 提交的部分 的控制器/路由
 		adminRouters.GET("/edit", admin.GoodsInfoController{}.Edit)
 		adminRouters.POST("/doEdit", admin.GoodsInfoController{}.DoEdit)
 		//删除商品信息
