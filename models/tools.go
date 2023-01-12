@@ -72,3 +72,8 @@ func MapString2Slice(m map[string]string) []string {
 	}
 	return s
 }
+
+// 获取纳秒
+func GetUnixNano() int64 {
+	return time.Now().UnixNano()
+}
