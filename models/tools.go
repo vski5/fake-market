@@ -26,6 +26,12 @@ func String(n int) string {
 	return str
 }
 
+// 把string转换成Float64
+func Float(str string) (float64, error) {
+	n, err := strconv.ParseFloat(str, 64)
+	return n, err
+}
+
 // 获取int类型的Unix时间戳
 func GetUnix() int {
 	timeUnix := time.Now().Unix()
