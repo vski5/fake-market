@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path"
@@ -82,7 +83,6 @@ func UploadManyImg(c *gin.Context, picName string, userFilmSrc string) (string, 
 
 		//拼接文件保存路径
 		dateDir := userFilmSrc + today + "/"
-		fmt.Println("dateDir-------------", dateDir)
 		//创造文件保存路径
 		//os.Mkdir(dateDir, 0666) 生成的文件夹有问题（无法操作）。
 		//os.MkdirAll(dateFileDir, 0666)生成的文件夹【一样】有问题（无法操作）
@@ -99,4 +99,46 @@ func UploadManyImg(c *gin.Context, picName string, userFilmSrc string) (string, 
 		return dateFileDir, nil
 
 	}
+}
+
+// 上传图片 写死保存地址为"./static/goodsUpload/"
+func UploadImg(c *gin.Context, picName string) (string, error) {
+	// 1、获取上传的文件
+	file, err := c.FormFile(picName)
+	if err != nil {
+		return "", err
+	}
+
+	// 2、获取后缀名 判断类型是否正确  .jpg .png .gif .jpeg
+	extName := path.Ext(file.Filename)
+	allowExtMap := map[string]bool{
+		".jpg":  true,
+		".png":  true,
+		".gif":  true,
+		".jpeg": true,
+	}
+
+	if _, ok := allowExtMap[extName]; !ok {
+		return "", errors.New("文件后缀名不合法")
+	}
+
+	// 3、创建图片保存目录  static/goodsUpload/20230624
+
+	day := GetDay()
+	dir := "./static/goodsUpload/" + day /*写死保存地址为"./static/goodsUpload/"*/
+
+	err1 := os.MkdirAll(dir, 0666)
+	if err1 != nil {
+		fmt.Println(err1)
+		return "", err1
+	}
+
+	// 4、生成文件名称和文件保存的目录   111111111111.jpeg
+	fileName := strconv.FormatInt(GetUnixNano(), 10) + extName
+
+	// 5、执行上传
+	dst := path.Join(dir, fileName)
+	c.SaveUploadedFile(file, dst)
+	return dst, nil
+
 }

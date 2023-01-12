@@ -7,6 +7,12 @@ import (
 	"time"
 )
 
+// 获取年月日
+func GetDay() string {
+	template := "20060102"
+	return time.Now().Format(template)
+}
+
 // MD5加密
 func MD5maker(text string) string {
 	hash := md5.Sum([]byte(text))
