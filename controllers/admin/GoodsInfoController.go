@@ -4,6 +4,7 @@ import (
 	"fake-market/models"
 	"net/http"
 	"strings"
+	"sync"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,7 +13,7 @@ type GoodsInfoController struct {
 	BaseController
 }
 
-//var wg sync.WaitGroup
+var wg sync.WaitGroup
 
 // 实现图片上传
 func (con GoodsInfoController) ImageUpload(c *gin.Context) {
@@ -131,7 +132,7 @@ func (con GoodsInfoController) DoAdd(c *gin.Context) {
 		con.Error(c, "增加失败", "/admin/goodsinfo/add")
 	}
 	//5、增加图库 信息
-	//wg.Add(1)
+	wg.Add(1)
 	go func() {
 		goodsImageList := c.PostFormArray("goods_image_list")
 		for _, v := range goodsImageList {
@@ -143,10 +144,10 @@ func (con GoodsInfoController) DoAdd(c *gin.Context) {
 			goodsImgObj.AddTime = int(models.GetUnix())
 			models.DB.Create(&goodsImgObj)
 		}
-		//wg.Done()
+		wg.Done()
 	}()
 	//6、增加规格包装
-	//wg.Add(1)
+	wg.Add(1)
 	go func() {
 		attrIdList := c.PostFormArray("attr_id_list")
 		attrValueList := c.PostFormArray("attr_value_list")
@@ -171,9 +172,9 @@ func (con GoodsInfoController) DoAdd(c *gin.Context) {
 			}
 
 		}
-		//wg.Done()
+		wg.Done()
 	}()
-	//wg.Wait()
+	wg.Wait()
 	con.Success(c, "增加数据成功", "/admin/goodsinfo/add")
 }
 func (con GoodsInfoController) Edit(c *gin.Context) {
