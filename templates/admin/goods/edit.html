@@ -19,7 +19,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive goods-content input-form">
-                    <form action="/admin/goods/doAdd" method="post" enctype="multipart/form-data">
+                    <form action="/admin/goodsinfo/doEdit" method="post" enctype="multipart/form-data">
 
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
@@ -102,20 +102,20 @@
                                     <li> <span>关联商品:</span>
 
                                         <input type="text" name="relation_goods" class="relation_goods" value="{{.goods.RelationGoods}}"/> <i>填写关联商品的id
-                                            多个以逗号隔开 格式：23,24,39</i>
+                                            多个以逗号隔开 格式:23,24,39</i>
 
                                     </li>
 
                                     <li> <span>关联赠品:</span>
 
-                                        <input type="text" name="goods_gift" class="goods_gift" value="{{.goods.GoodsGift}}"/> <i>可为空 格式：23-2,39-5
-                                            说明：例如23-2 中的23表示商品id,2表示商品数量</i>
+                                        <input type="text" name="goods_gift" class="goods_gift" value="{{.goods.GoodsGift}}"/> <i>可为空 格式:23-2,39-5
+                                            说明:例如23-2 中的23表示商品id,2表示商品数量</i>
 
                                     </li>
                                     <li> <span>关联配件:</span>
 
                                         <input type="text" name="goods_fitting" class="goods_fitting" value="{{.goods.GoodsFitting}}" /> <i>可为空
-                                            格式：23-2,39-5 说明：例如23-2 中的23表示商品id,2表示商品数量</i>
+                                            格式:23-2,39-5 说明:例如23-2 中的23表示商品id,2表示商品数量</i>
 
                                     </li>
 
