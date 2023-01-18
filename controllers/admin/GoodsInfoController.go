@@ -25,8 +25,16 @@ func (con GoodsInfoController) ImageUpload(c *gin.Context) {
 		c.JSON(200, gin.H{"link": "/" + savePath})
 	}
 }
+
+// 展示商品有哪些的index
 func (con GoodsInfoController) Index(c *gin.Context) {
-	c.HTML(http.StatusOK, "admin/goods/index.html", gin.H{})
+	goodsList := []models.Goods{}
+	models.DB.Find(&goodsList)
+
+	c.HTML(http.StatusOK, "admin/goods/index.html", gin.H{
+		"goodsList": goodsList,
+	})
+
 }
 
 func (con GoodsInfoController) Add(c *gin.Context) {
