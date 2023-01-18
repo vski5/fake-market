@@ -2,6 +2,7 @@ package admin
 
 import (
 	"fake-market/models"
+	"fmt"
 	"net/http"
 	"strings"
 	"sync"
@@ -185,8 +186,83 @@ func (con GoodsInfoController) DoAdd(c *gin.Context) {
 	wg.Wait()
 	con.Success(c, "增加数据成功", "/admin/goodsinfo/add")
 }
-func (con GoodsInfoController) Edit(c *gin.Context) {
 
+// 修改界面
+func (con GoodsInfoController) Edit(c *gin.Context) {
+	// 1、获取要修改的商品数据
+	id, err := models.Int(c.Query("id"))
+	if err != nil {
+		con.Error(c, "传入参数错误", "/admin/goods")
+	}
+	goods := models.Goods{Id: id}
+	models.DB.Find(&goods)
+
+	// 2、获取商品分类
+	goodsCateList := []models.GoodsCate{}
+	models.DB.Where("pid=0").Preload("GoodsCateItems").Find(&goodsCateList)
+
+	// 3、获取所有颜色 以及选中的颜色
+	goodsColorSlice := strings.Split(goods.GoodsColor, ",")
+	goodsColorMap := make(map[string]string)
+	for _, v := range goodsColorSlice {
+		goodsColorMap[v] = v
+	}
+
+	goodsColorList := []models.GoodsColor{}
+	models.DB.Find(&goodsColorList)
+	for i := 0; i < len(goodsColorList); i++ {
+		if _, ok := goodsColorMap[models.String(goodsColorList[i].Id)]; ok {
+			goodsColorList[i].Checked = true
+		}
+	}
+
+	// 4、商品的图库信息
+	goodsImageList := []models.GoodsImage{}
+	models.DB.Where("goods_id=?", goods.Id).Find(&goodsImageList)
+
+	// 5、获取商品类型
+	goodsTypeList := []models.GoodsType{}
+	models.DB.Find(&goodsTypeList)
+
+	// 6、获取规格信息
+	goodsAttr := []models.GoodsAttr{}
+	models.DB.Where("goods_id=?", goods.Id).Find(&goodsAttr)
+	goodsAttrStr := ""
+
+	for _, v := range goodsAttr {
+		if v.AttributeType == 1 {
+			goodsAttrStr += fmt.Sprintf(`<li><span>%v: </span> <input type="hidden" name="attr_id_list" value="%v" />   <input type="text" name="attr_value_list" value="%v" /></li>`, v.AttributeTitle, v.AttributeId, v.AttributeValue)
+		} else if v.AttributeType == 2 {
+			goodsAttrStr += fmt.Sprintf(`<li><span>%v:  </span><input type="hidden" name="attr_id_list" value="%v" />  <textarea cols="50" rows="3" name="attr_value_list">%v</textarea></li>`, v.AttributeTitle, v.AttributeId, v.AttributeValue)
+		} else {
+			//获取当前类型对应的值
+			goodsTypeArttribute := models.GoodsTypeAttribute{Id: v.AttributeId}
+			models.DB.Find(&goodsTypeArttribute)
+			attrValueSlice := strings.Split(goodsTypeArttribute.AttrValue, "\n")
+
+			goodsAttrStr += fmt.Sprintf(`<li><span>%v:  </span>  <input type="hidden" name="attr_id_list" value="%v" /> `, v.AttributeTitle, v.AttributeId)
+			goodsAttrStr += fmt.Sprintf(`<select name="attr_value_list">`)
+			for i := 0; i < len(attrValueSlice); i++ {
+				if attrValueSlice[i] == v.AttributeValue {
+					goodsAttrStr += fmt.Sprintf(`<option value="%v" selected >%v</option>`, attrValueSlice[i], attrValueSlice[i])
+				} else {
+					goodsAttrStr += fmt.Sprintf(`<option value="%v">%v</option>`, attrValueSlice[i], attrValueSlice[i])
+				}
+			}
+			goodsAttrStr += fmt.Sprintf(`</select>`)
+			goodsAttrStr += fmt.Sprintf(`</li>`)
+
+		}
+	}
+
+	c.HTML(http.StatusOK, "admin/goods/edit.html", gin.H{
+		"goods":          goods,
+		"goodsCateList":  goodsCateList,
+		"goodsColorList": goodsColorList,
+		"goodsTypeList":  goodsTypeList,
+		"goodsAttrStr":   goodsAttrStr,
+		"goodsImageList": goodsImageList,
+	})
 }
 func (con GoodsInfoController) DoEdit(c *gin.Context) {
 
