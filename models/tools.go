@@ -3,6 +3,7 @@ package models
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"html/template"
 	"strconv"
 	"time"
 )
@@ -82,4 +83,9 @@ func MapString2Slice(m map[string]string) []string {
 // 获取纳秒
 func GetUnixNano() int64 {
 	return time.Now().UnixNano()
+}
+
+// 把字符串解析成html
+func Str2Html(str string) template.HTML {
+	return template.HTML(str)
 }
