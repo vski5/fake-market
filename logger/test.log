@@ -194,3 +194,12 @@
 2023-01-18T09:03:07.830Z	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/goodsinfo/index
 2023-01-18T09:03:17.279Z	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/goodsinfo/edit
 2023-01-18T09:03:29.912Z	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/goods/doAdd
+2023-01-30T04:27:55.288Z	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/manager/index
+2023-01-30T04:27:58.969Z	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/goodsinfo/index
+2023-01-30T04:28:02.644Z	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/goodsinfo/add
+2023-01-30T04:28:29.946Z	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/goods/goodsTypeAttribute
+2023-01-30T04:28:44.947Z	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/goodsinfo/imageUpload
+2023-01-30T04:29:00.337Z	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/goodsinfo/doAdd
+2023-01-30T04:29:05.118Z	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/goodsinfo/add
+2023-01-30T04:29:19.003Z	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/goodsinfo/index
+2023-01-30T04:29:22.289Z	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/goodsinfo/edit
