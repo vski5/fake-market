@@ -28,7 +28,7 @@
                             <li role="presentation"><a href="#detail" role="tab" data-toggle="tab">详细描述</a></li>
                             <li role="presentation"><a href="#mix" role="tab" data-toggle="tab">商品属性</a></li>
                             <li role="presentation"><a href="#attribute" role="tab" data-toggle="tab">规格与包装</a></li>
-                            <li role="presentation"><a href="#photo" role="tab" data-toggle="tab">商品相册</a></li>
+                            <li role="presentation"><a href="#photo" role="tab" data-toggle="tab">商品相册（点击图片删除）</a></li>
                         </ul>
 
                         <!-- Tab panes -->
@@ -275,7 +275,7 @@
             var _that=this;         
             var flag = confirm("确定要删除吗?");
             if (flag){
-                $.get("/admin/goods/removeGoodsImage",{"goods_image_id":goods_image_id},function(response){
+                $.get("/admin/goodsinfo/removeGoodsImage",{"goods_image_id":goods_image_id},function(response){
                     // console.log(response)
                     if(response.success){
                         $(_that).parent().remove()
