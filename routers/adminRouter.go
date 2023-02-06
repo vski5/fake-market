@@ -137,6 +137,8 @@ func GoodsInfoRouterInit(r *gin.Engine) {
 		adminRouters.POST("/static/goodsUpload/", admin.GoodsInfoController{}.ImageUpload)
 		//上传商品相册图片/admin/goods/imageUpload
 		adminRouters.POST("/imageUpload", admin.GoodsInfoController{}.ImageUpload)
+		adminRouters.GET("/changeGoodsImageColor", admin.GoodsInfoController{}.ChangeGoodsImageColor)
+		adminRouters.GET("/removeGoodsImage", admin.GoodsInfoController{}.RemoveGoodsImage)
 
 	}
 }

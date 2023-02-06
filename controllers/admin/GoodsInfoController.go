@@ -391,3 +391,47 @@ func (con GoodsInfoController) DoEdit(c *gin.Context) {
 func (con GoodsInfoController) Delete(c *gin.Context) {
 
 }
+
+// 图库关联颜色
+func (con GoodsInfoController) ChangeGoodsImageColor(c *gin.Context) {
+	// 获取图片id 获取颜色id
+	goodsImageId, err1 := models.Int(c.Query("goods_image_id"))
+	colorId, err2 := models.Int(c.Query("color_id"))
+	goodsImage := models.GoodsImage{Id: goodsImageId}
+	models.DB.Find(&goodsImage)
+	goodsImage.ColorId = colorId
+	err3 := models.DB.Save(&goodsImage).Error
+	if err1 != nil || err2 != nil || err3 != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"result":  "更新失败",
+			"success": false,
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"result":  "更新成功",
+			"success": true,
+		})
+	}
+
+}
+
+// 移除（批量上传部分的）图片
+func (con GoodsInfoController) RemoveGoodsImage(c *gin.Context) {
+	// 获取图片id
+	goodsImageId, err1 := models.Int(c.Query("goods_image_id"))
+	goodsImage := models.GoodsImage{Id: goodsImageId}
+	err2 := models.DB.Delete(&goodsImage).Error
+	if err1 != nil || err2 != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"result":  "删除失败",
+			"success": false,
+		})
+	} else {
+		//删除图片
+		// os.Remove()
+		c.JSON(http.StatusOK, gin.H{
+			"result":  "删除成功",
+			"success": true,
+		})
+	}
+}
