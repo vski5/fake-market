@@ -3,6 +3,7 @@ package admin
 import (
 	"fake-market/models"
 	"fmt"
+	"math"
 	"net/http"
 	"strings"
 	"sync"
@@ -29,11 +30,27 @@ func (con GoodsInfoController) ImageUpload(c *gin.Context) {
 
 // 展示商品有哪些的index
 func (con GoodsInfoController) Index(c *gin.Context) {
+	// 商品分页
+	//当前页数
+	page, _ := models.Int(c.Query("page"))
+	if page == 0 {
+		page = 1
+	}
+	// 每页查询的数量
+	pageSize := 5
 	goodsList := []models.Goods{}
-	models.DB.Find(&goodsList)
+	models.DB.Offset((page - 1) * pageSize).Limit(pageSize).Find(&goodsList)
+
+	// 获取总数量
+	/*后期可以优化一下，将这个count放在redis里，定时更新*/
+	var count int64
+	models.DB.Table("goods").Count(&count)
 
 	c.HTML(http.StatusOK, "admin/goods/index.html", gin.H{
 		"goodsList": goodsList,
+		//float64类型
+		"totalPages": math.Ceil(float64(count) / float64(pageSize)),
+		"page":       page,
 	})
 
 }
