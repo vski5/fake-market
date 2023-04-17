@@ -38,20 +38,39 @@ func (con GoodsInfoController) Index(c *gin.Context) {
 	}
 	// 每页查询的数量
 	pageSize := 5
+	// 检测是否删除
+	where := "is_delete = 0"
 	goodsList := []models.Goods{}
-	models.DB.Offset((page - 1) * pageSize).Limit(pageSize).Find(&goodsList)
+	models.DB.Where(where).Offset((page - 1) * pageSize).Limit(pageSize).Find(&goodsList)
 
 	// 获取总数量
 	/*后期可以优化一下，将这个count放在redis里，定时更新*/
 	var count int64
-	models.DB.Table("goods").Count(&count)
+	models.DB.Where(where).Table("goods").Count(&count)
 
-	c.HTML(http.StatusOK, "admin/goods/index.html", gin.H{
-		"goodsList": goodsList,
-		//float64类型
-		"totalPages": math.Ceil(float64(count) / float64(pageSize)),
-		"page":       page,
-	})
+	//判断最后一页有没有数据 如果没有跳转到第一页
+	if len(goodsList) > 0 {
+		c.HTML(http.StatusOK, "admin/goods/index.html", gin.H{
+			"goodsList": goodsList,
+			//注意float64类型
+			"totalPages": math.Ceil(float64(count) / float64(pageSize)),
+			"page":       page,
+			//"keyword":    keyword,
+		})
+	} else {
+		if page != 1 {
+			c.Redirect(302, "/admin/goods")
+		} else {
+			c.HTML(http.StatusOK, "admin/goods/index.html", gin.H{
+				"goodsList": goodsList,
+				//注意float64类型
+				"totalPages": math.Ceil(float64(count) / float64(pageSize)),
+				"page":       page,
+				//"keyword":    keyword,
+			})
+		}
+
+	}
 
 }
 
