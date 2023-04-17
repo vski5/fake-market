@@ -279,6 +279,7 @@ func (con GoodsInfoController) Edit(c *gin.Context) {
 		"goodsTypeList":  goodsTypeList,
 		"goodsAttrStr":   goodsAttrStr,
 		"goodsImageList": goodsImageList,
+		"prevPage":       c.Request.Referer(), //获取上一页的地址
 	})
 }
 func (con GoodsInfoController) DoEdit(c *gin.Context) {
@@ -312,6 +313,9 @@ func (con GoodsInfoController) DoEdit(c *gin.Context) {
 	goodsTypeId, _ := models.Int(c.PostForm("goods_type_id"))
 	sort, _ := models.Int(c.PostForm("sort"))
 	status, _ := models.Int(c.PostForm("status"))
+
+	//获取上页地址
+	prevPage := c.PostForm("prevPage")
 
 	// 2、获取颜色信息 把颜色转化成字符串
 	goodsColorStr := strings.Join(goodsColorArr, ",")
@@ -403,7 +407,12 @@ func (con GoodsInfoController) DoEdit(c *gin.Context) {
 		wg.Done()
 	}()
 	wg.Wait()
-	con.Success(c, "修改数据成功", "/admin/goodsinfo/index")
+	if len(prevPage) > 0 {
+		con.Success(c, "修改成功，退回上一页", prevPage)
+	} else {
+		con.Success(c, "修改成功", "/admin/goodsinfo/index")
+	}
+
 }
 func (con GoodsInfoController) Delete(c *gin.Context) {
 
