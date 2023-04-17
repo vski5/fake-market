@@ -415,6 +415,26 @@ func (con GoodsInfoController) DoEdit(c *gin.Context) {
 
 }
 func (con GoodsInfoController) Delete(c *gin.Context) {
+	//删除数据(软删除)
+
+	id, err := models.Int(c.Query("id"))
+	if err != nil {
+		con.Error(c, "传入数据错误", "/admin/goods")
+	} else {
+		goods := models.Goods{Id: id}
+		models.DB.Find(&goods)
+		goods.IsDelete = 1 //软删除，后期可以设置为按时批量删除goods.IsDelete = 1
+		goods.Status = 0
+		models.DB.Save(&goods)
+		//获取上一页
+		prevPage := c.Request.Referer()
+		if len(prevPage) > 0 {
+			con.Success(c, "删除数据成功", prevPage)
+		} else {
+			con.Success(c, "删除数据成功", "/admin/goodsinfo/index")
+		}
+
+	}
 
 }
 
