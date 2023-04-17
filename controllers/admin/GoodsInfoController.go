@@ -43,6 +43,12 @@ func (con GoodsInfoController) Index(c *gin.Context) {
 	goodsList := []models.Goods{}
 	models.DB.Where(where).Offset((page - 1) * pageSize).Limit(pageSize).Find(&goodsList)
 
+	//获取keyword在sql的title里的搜索
+	keyword := c.Query("keyword")
+	if len(keyword) > 0 {
+		where += " AND title like \"%" + keyword + "%\""
+	}
+
 	// 获取总数量
 	/*后期可以优化一下，将这个count放在redis里，定时更新*/
 	var count int64
@@ -55,7 +61,7 @@ func (con GoodsInfoController) Index(c *gin.Context) {
 			//注意float64类型
 			"totalPages": math.Ceil(float64(count) / float64(pageSize)),
 			"page":       page,
-			//"keyword":    keyword,
+			"keyword":    keyword,
 		})
 	} else {
 		if page != 1 {
@@ -66,7 +72,7 @@ func (con GoodsInfoController) Index(c *gin.Context) {
 				//注意float64类型
 				"totalPages": math.Ceil(float64(count) / float64(pageSize)),
 				"page":       page,
-				//"keyword":    keyword,
+				"keyword":    keyword,
 			})
 		}
 
