@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="panel-body">
-            <form role="form" class="form-inline" method="get" action="/admin/goods">
+            <form role="form" class="form-inline" method="get" action="/admin/goodsinfo/index">
                 <div class="form-group">
                     <label for="name">输入关键词</label>
                     <input type="text" class="form-control" value="{{.keyword}}" id="keyword" name="keyword" placeholder="请输入名称">
@@ -119,7 +119,7 @@
             console.log(num, type);
             if(type!='init'){
                 //location.href="/admin/goodsinfo/index?page="+num;
-                location.href="/admin/goodsinfo?page="+num+"&keyword={{.keyword}}";
+                location.href="/admin/goodsinfo/index?page="+num+"&keyword={{.keyword}}";
             }
 
         }
