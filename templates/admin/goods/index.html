@@ -118,7 +118,8 @@
            
             console.log(num, type);
             if(type!='init'){
-                location.href="/admin/goodsinfo/index?page="+num;
+                //location.href="/admin/goodsinfo/index?page="+num;
+                location.href="/admin/goodsinfo?page="+num+"&keyword={{.keyword}}";
             }
 
         }
