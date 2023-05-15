@@ -29,6 +29,7 @@ func (con GoodsSettingController) DoEdit(c *gin.Context) {
 		return
 	} else {
 		// 上传图片 logo
+		//goodsImg, _ := models.UploadImg(c, "goods_img")
 		siteLogo, err1 := models.UploadImg(c, "site_logo")
 		if len(siteLogo) > 0 && err1 == nil {
 			setting.SiteLogo = siteLogo
