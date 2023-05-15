@@ -142,6 +142,14 @@ func GoodsInfoRouterInit(r *gin.Engine) {
 
 	}
 }
+///admin/setting/index
+func GoodsSettingRouterInit(r *gin.Engine) {
+	adminRouters := r.Group("admin/setting", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
+	{
+		adminRouters.GET("/index", admin.GoodsSettingController{}.Index)
+
+	}
+}
 
 // 商品信息的管理（静态资源部分）
 /* func GoodsInfoUploadRouterInit(r *gin.Engine) {
