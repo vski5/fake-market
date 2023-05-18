@@ -154,6 +154,19 @@ func GoodsSettingRouterInit(r *gin.Engine) {
 	}
 }
 
+func GoodsNavRouterInit(r *gin.Engine) {
+	adminRouters := r.Group("admin/nav", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)
+	{
+		adminRouters.GET("/", admin.NavController{}.Index)
+		adminRouters.GET("/add", admin.NavController{}.Add)
+		adminRouters.POST("/doAdd", admin.NavController{}.DoAdd)
+		adminRouters.GET("/edit", admin.NavController{}.Edit)
+		adminRouters.POST("/doEdit", admin.NavController{}.DoEdit)
+		adminRouters.GET("/delete", admin.NavController{}.Delete)
+
+	}
+}
+
 // 商品信息的管理（静态资源部分）
 /* func GoodsInfoUploadRouterInit(r *gin.Engine) {
 	adminRouters := r.Group("static/goodsUpload", middlewares.InitMiddleware, middlewares.InitAdminAuthMiddleware)

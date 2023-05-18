@@ -307,3 +307,7 @@
 2023-05-15T15:24:35.435+0100	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/setting/index
 2023-05-15T15:24:48.104+0100	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/setting/doEdit
 2023-05-15T15:24:51.497+0100	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/setting/index
+2023-05-18T09:10:08.107+0100	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/manager/index
+2023-05-18T09:13:40.694+0100	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/nav/
+2023-05-18T09:13:47.303+0100	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/nav/
+2023-05-18T09:13:52.559+0100	INFO	middlewares/AdminAuth.go:55	超级管理员登录! 用户名 = admin for URL /admin/nav/
