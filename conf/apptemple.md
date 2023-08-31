@@ -20,4 +20,7 @@ ip_Port= 127.0.0.1:6379
 password = 记得加上密码
 
 [zap]
-infoDir = /home/ubuntu/fake-market/models/zap.go
+infoDir = ./logger/test.log
+
+[webcookie]
+cookieinfoDir = .20011111.xyz
