@@ -2,8 +2,10 @@ package admin
 
 import (
 	"fake-market/models"
-
+	"gopkg.in/ini.v1" //注意引用的是指定版本号V1 "gopkg.in/ini.v1"
 	"github.com/gin-gonic/gin"
+	"fmt"
+	"os"
 )
 
 type AdminController struct{ BaseController }
@@ -50,7 +52,13 @@ func (con AdminController) Dolog(c *gin.Context) {
 			//设置cookie，第5个参数表示所有20011111.xyz的二级域名（比如a.20011111.xyz b.20011111.xyz）都共享一个cookie
 			//第4个表示路径，/admin 路径的共享这个cookie，如果设置为/，就是所有都共享。
 			//第一个是cookie的名字
-			c.SetCookie("admin_cookie", username, 3600, "/admin", ".20011111.xyz", false, false)
+			config1, err := ini.Load("./conf/app.ini")
+			if err != nil {
+				fmt.Printf("Fail to read file: %v", err)
+				os.Exit(1)
+			}
+			cookieWeb := config1.Section("webcookie").Key("cookieinfoDir").String() //cookieWeb是.20011111.xyz
+			c.SetCookie("admin_cookie", username, 3600, "/admin", cookieWeb, false, false)
 
 			//设置一个session，保持登录状态
 			/* 			managerinfoSlice, _ := json.Marshal(managerinfo)
